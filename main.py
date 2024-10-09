@@ -78,5 +78,4 @@ def main() -> None:
         print("City not found.")
 
 
-if __name__ == "__main__":
-    main()
+main()

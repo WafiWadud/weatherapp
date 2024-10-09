@@ -12,6 +12,7 @@
 #include "exc_ops.c"
 #include "misc_ops.c"
 #include "generic_ops.c"
+#include "pythonsupport.c"
 #include "__native.h"
 #include "__native_internal.h"
 static PyMethodDef module_methods[] = {
@@ -60,7 +61,6 @@ PyMODINIT_FUNC PyInit_main(void)
 
 tuple_T2OO CPyDef_get_coordinates(PyObject *cpy_r_city, PyObject *cpy_r_api_key) {
     PyObject *cpy_r_r0;
-    PyObject *cpy_r_base_url;
     PyObject *cpy_r_r1;
     PyObject *cpy_r_r2;
     PyObject *cpy_r_r3;
@@ -72,18 +72,15 @@ tuple_T2OO CPyDef_get_coordinates(PyObject *cpy_r_city, PyObject *cpy_r_api_key)
     PyObject *cpy_r_r10;
     PyObject *cpy_r_r11;
     PyObject *cpy_r_r12;
-    PyObject *cpy_r_params;
     PyObject *cpy_r_r13;
     PyObject *cpy_r_r14;
     PyObject *cpy_r_r15;
     PyObject **cpy_r_r17;
     PyObject *cpy_r_r18;
     PyObject *cpy_r_r19;
-    PyObject *cpy_r_response;
     PyObject *cpy_r_r20;
     PyObject **cpy_r_r22;
     PyObject *cpy_r_r23;
-    PyObject *cpy_r_data;
     int32_t cpy_r_r24;
     char cpy_r_r25;
     char cpy_r_r26;
@@ -106,7 +103,6 @@ tuple_T2OO CPyDef_get_coordinates(PyObject *cpy_r_city, PyObject *cpy_r_api_key)
     tuple_T2OO cpy_r_r43;
     cpy_r_r0 = CPyStatics[3]; /* 'http://api.openweathermap.org/geo/1.0/direct' */
     CPy_INCREF(cpy_r_r0);
-    cpy_r_base_url = cpy_r_r0;
     cpy_r_r1 = CPyStatics[4]; /* 'q' */
     cpy_r_r2 = CPyStatics[5]; /* '{:{}}' */
     cpy_r_r3 = CPyStatics[6]; /* '' */
@@ -126,14 +122,13 @@ tuple_T2OO CPyDef_get_coordinates(PyObject *cpy_r_city, PyObject *cpy_r_api_key)
     }
     cpy_r_r9 = CPyStatics[8]; /* 'limit' */
     cpy_r_r10 = CPyStatics[9]; /* 'appid' */
-    cpy_r_r11 = CPyStatics[51]; /* 1 */
+    cpy_r_r11 = CPyStatics[49]; /* 1 */
     cpy_r_r12 = CPyDict_Build(3, cpy_r_r1, cpy_r_r8, cpy_r_r9, cpy_r_r11, cpy_r_r10, cpy_r_api_key);
     CPy_DECREF(cpy_r_r8);
     if (unlikely(cpy_r_r12 == NULL)) {
         CPy_AddTraceback("main.py", "get_coordinates", 7, CPyStatic_globals);
         goto CPyL17;
     }
-    cpy_r_params = cpy_r_r12;
     cpy_r_r13 = CPyModule_requests;
     cpy_r_r14 = CPyStatics[10]; /* 'get' */
     cpy_r_r15 = CPyObject_GetAttr(cpy_r_r13, cpy_r_r14);
@@ -141,29 +136,27 @@ tuple_T2OO CPyDef_get_coordinates(PyObject *cpy_r_city, PyObject *cpy_r_api_key)
         CPy_AddTraceback("main.py", "get_coordinates", 8, CPyStatic_globals);
         goto CPyL18;
     }
-    PyObject *cpy_r_r16[2] = {cpy_r_base_url, cpy_r_params};
+    PyObject *cpy_r_r16[2] = {cpy_r_r0, cpy_r_r12};
     cpy_r_r17 = (PyObject **)&cpy_r_r16;
-    cpy_r_r18 = CPyStatics[53]; /* ('params',) */
+    cpy_r_r18 = CPyStatics[51]; /* ('params',) */
     cpy_r_r19 = _PyObject_Vectorcall(cpy_r_r15, cpy_r_r17, 1, cpy_r_r18);
     CPy_DECREF(cpy_r_r15);
     if (unlikely(cpy_r_r19 == NULL)) {
         CPy_AddTraceback("main.py", "get_coordinates", 8, CPyStatic_globals);
         goto CPyL18;
     }
-    CPy_DECREF(cpy_r_base_url);
-    CPy_DECREF(cpy_r_params);
-    cpy_r_response = cpy_r_r19;
+    CPy_DECREF(cpy_r_r0);
+    CPy_DECREF(cpy_r_r12);
     cpy_r_r20 = CPyStatics[12]; /* 'json' */
-    PyObject *cpy_r_r21[1] = {cpy_r_response};
+    PyObject *cpy_r_r21[1] = {cpy_r_r19};
     cpy_r_r22 = (PyObject **)&cpy_r_r21;
     cpy_r_r23 = PyObject_VectorcallMethod(cpy_r_r20, cpy_r_r22, 9223372036854775809ULL, 0);
     if (unlikely(cpy_r_r23 == NULL)) {
         CPy_AddTraceback("main.py", "get_coordinates", 9, CPyStatic_globals);
         goto CPyL19;
     }
-    CPy_DECREF(cpy_r_response);
-    cpy_r_data = cpy_r_r23;
-    cpy_r_r24 = PyObject_IsTrue(cpy_r_data);
+    CPy_DECREF(cpy_r_r19);
+    cpy_r_r24 = PyObject_IsTrue(cpy_r_r23);
     cpy_r_r25 = cpy_r_r24 >= 0;
     if (unlikely(!cpy_r_r25)) {
         CPy_AddTraceback("main.py", "get_coordinates", 9, CPyStatic_globals);
@@ -171,8 +164,8 @@ tuple_T2OO CPyDef_get_coordinates(PyObject *cpy_r_city, PyObject *cpy_r_api_key)
     }
     cpy_r_r26 = cpy_r_r24;
     if (!cpy_r_r26) goto CPyL21;
-    cpy_r_r27 = CPyStatics[52]; /* 0 */
-    cpy_r_r28 = PyObject_GetItem(cpy_r_data, cpy_r_r27);
+    cpy_r_r27 = CPyStatics[50]; /* 0 */
+    cpy_r_r28 = PyObject_GetItem(cpy_r_r23, cpy_r_r27);
     if (unlikely(cpy_r_r28 == NULL)) {
         CPy_AddTraceback("main.py", "get_coordinates", 11, CPyStatic_globals);
         goto CPyL20;
@@ -184,9 +177,9 @@ tuple_T2OO CPyDef_get_coordinates(PyObject *cpy_r_city, PyObject *cpy_r_api_key)
         CPy_AddTraceback("main.py", "get_coordinates", 11, CPyStatic_globals);
         goto CPyL20;
     }
-    cpy_r_r31 = CPyStatics[52]; /* 0 */
-    cpy_r_r32 = PyObject_GetItem(cpy_r_data, cpy_r_r31);
-    CPy_DECREF(cpy_r_data);
+    cpy_r_r31 = CPyStatics[50]; /* 0 */
+    cpy_r_r32 = PyObject_GetItem(cpy_r_r23, cpy_r_r31);
+    CPy_DECREF(cpy_r_r23);
     if (unlikely(cpy_r_r32 == NULL)) {
         CPy_AddTraceback("main.py", "get_coordinates", 11, CPyStatic_globals);
         goto CPyL22;
@@ -252,20 +245,20 @@ CPyL16: ;
     cpy_r_r43 = __tmp3;
     return cpy_r_r43;
 CPyL17: ;
-    CPy_DecRef(cpy_r_base_url);
+    CPy_DecRef(cpy_r_r0);
     goto CPyL16;
 CPyL18: ;
-    CPy_DecRef(cpy_r_base_url);
-    CPy_DecRef(cpy_r_params);
+    CPy_DecRef(cpy_r_r0);
+    CPy_DecRef(cpy_r_r12);
     goto CPyL16;
 CPyL19: ;
-    CPy_DecRef(cpy_r_response);
+    CPy_DecRef(cpy_r_r19);
     goto CPyL16;
 CPyL20: ;
-    CPy_DecRef(cpy_r_data);
+    CPy_DecRef(cpy_r_r23);
     goto CPyL16;
 CPyL21: ;
-    CPy_DECREF(cpy_r_data);
+    CPy_DECREF(cpy_r_r23);
     goto CPyL15;
 CPyL22: ;
     CPy_DecRef(cpy_r_r30);
@@ -319,7 +312,6 @@ fail: ;
 
 PyObject *CPyDef_get_weather(double cpy_r_lat, double cpy_r_lon, PyObject *cpy_r_api_key) {
     PyObject *cpy_r_r0;
-    PyObject *cpy_r_base_url;
     PyObject *cpy_r_r1;
     PyObject *cpy_r_r2;
     PyObject *cpy_r_r3;
@@ -328,22 +320,18 @@ PyObject *CPyDef_get_weather(double cpy_r_lat, double cpy_r_lon, PyObject *cpy_r
     PyObject *cpy_r_r6;
     PyObject *cpy_r_r7;
     PyObject *cpy_r_r8;
-    PyObject *cpy_r_params;
     PyObject *cpy_r_r9;
     PyObject *cpy_r_r10;
     PyObject *cpy_r_r11;
     PyObject **cpy_r_r13;
     PyObject *cpy_r_r14;
     PyObject *cpy_r_r15;
-    PyObject *cpy_r_response;
     PyObject *cpy_r_r16;
     PyObject **cpy_r_r18;
     PyObject *cpy_r_r19;
-    PyObject *cpy_r_data;
     PyObject *cpy_r_r20;
     cpy_r_r0 = CPyStatics[15]; /* 'http://api.openweathermap.org/data/2.5/weather' */
     CPy_INCREF(cpy_r_r0);
-    cpy_r_base_url = cpy_r_r0;
     cpy_r_r1 = CPyStatics[13]; /* 'lat' */
     cpy_r_r2 = CPyStatics[14]; /* 'lon' */
     cpy_r_r3 = CPyStatics[9]; /* 'appid' */
@@ -358,7 +346,6 @@ PyObject *CPyDef_get_weather(double cpy_r_lat, double cpy_r_lon, PyObject *cpy_r
         CPy_AddTraceback("main.py", "get_weather", 18, CPyStatic_globals);
         goto CPyL6;
     }
-    cpy_r_params = cpy_r_r8;
     cpy_r_r9 = CPyModule_requests;
     cpy_r_r10 = CPyStatics[10]; /* 'get' */
     cpy_r_r11 = CPyObject_GetAttr(cpy_r_r9, cpy_r_r10);
@@ -366,41 +353,39 @@ PyObject *CPyDef_get_weather(double cpy_r_lat, double cpy_r_lon, PyObject *cpy_r
         CPy_AddTraceback("main.py", "get_weather", 24, CPyStatic_globals);
         goto CPyL7;
     }
-    PyObject *cpy_r_r12[2] = {cpy_r_base_url, cpy_r_params};
+    PyObject *cpy_r_r12[2] = {cpy_r_r0, cpy_r_r8};
     cpy_r_r13 = (PyObject **)&cpy_r_r12;
-    cpy_r_r14 = CPyStatics[53]; /* ('params',) */
+    cpy_r_r14 = CPyStatics[51]; /* ('params',) */
     cpy_r_r15 = _PyObject_Vectorcall(cpy_r_r11, cpy_r_r13, 1, cpy_r_r14);
     CPy_DECREF(cpy_r_r11);
     if (unlikely(cpy_r_r15 == NULL)) {
         CPy_AddTraceback("main.py", "get_weather", 24, CPyStatic_globals);
         goto CPyL7;
     }
-    CPy_DECREF(cpy_r_base_url);
-    CPy_DECREF(cpy_r_params);
-    cpy_r_response = cpy_r_r15;
+    CPy_DECREF(cpy_r_r0);
+    CPy_DECREF(cpy_r_r8);
     cpy_r_r16 = CPyStatics[12]; /* 'json' */
-    PyObject *cpy_r_r17[1] = {cpy_r_response};
+    PyObject *cpy_r_r17[1] = {cpy_r_r15};
     cpy_r_r18 = (PyObject **)&cpy_r_r17;
     cpy_r_r19 = PyObject_VectorcallMethod(cpy_r_r16, cpy_r_r18, 9223372036854775809ULL, 0);
     if (unlikely(cpy_r_r19 == NULL)) {
         CPy_AddTraceback("main.py", "get_weather", 25, CPyStatic_globals);
         goto CPyL8;
     }
-    CPy_DECREF(cpy_r_response);
-    cpy_r_data = cpy_r_r19;
-    return cpy_r_data;
+    CPy_DECREF(cpy_r_r15);
+    return cpy_r_r19;
 CPyL5: ;
     cpy_r_r20 = NULL;
     return cpy_r_r20;
 CPyL6: ;
-    CPy_DecRef(cpy_r_base_url);
+    CPy_DecRef(cpy_r_r0);
     goto CPyL5;
 CPyL7: ;
-    CPy_DecRef(cpy_r_base_url);
-    CPy_DecRef(cpy_r_params);
+    CPy_DecRef(cpy_r_r0);
+    CPy_DecRef(cpy_r_r8);
     goto CPyL5;
 CPyL8: ;
-    CPy_DecRef(cpy_r_response);
+    CPy_DecRef(cpy_r_r15);
     goto CPyL5;
 }
 
@@ -442,19 +427,16 @@ tuple_T3OOO CPyDef_determine_emojis(PyObject *cpy_r_weather_data) {
     PyObject *cpy_r_r1;
     double cpy_r_r2;
     char cpy_r_r3;
-    double cpy_r_feels_like;
     PyObject *cpy_r_r4;
     PyObject *cpy_r_r5;
     PyObject *cpy_r_r6;
     double cpy_r_r7;
     char cpy_r_r8;
-    double cpy_r_humidity;
     PyObject *cpy_r_r9;
     PyObject *cpy_r_r10;
     PyObject *cpy_r_r11;
     double cpy_r_r12;
     char cpy_r_r13;
-    double cpy_r_temp;
     char cpy_r_r14;
     PyObject *cpy_r_r15;
     PyObject *cpy_r_r16;
@@ -492,7 +474,6 @@ tuple_T3OOO CPyDef_determine_emojis(PyObject *cpy_r_weather_data) {
     cpy_r_r3 = cpy_r_r2 == -113.0;
     if (unlikely(cpy_r_r3)) goto CPyL3;
 CPyL2: ;
-    cpy_r_feels_like = cpy_r_r2;
     cpy_r_r4 = CPyStatics[19]; /* 'humidity' */
     cpy_r_r5 = CPyDict_GetItem(cpy_r_weather_data, cpy_r_r4);
     if (unlikely(cpy_r_r5 == NULL)) {
@@ -516,7 +497,6 @@ CPyL4: ;
     cpy_r_r8 = cpy_r_r7 == -113.0;
     if (unlikely(cpy_r_r8)) goto CPyL6;
 CPyL5: ;
-    cpy_r_humidity = cpy_r_r7;
     cpy_r_r9 = CPyStatics[20]; /* 'temp' */
     cpy_r_r10 = CPyDict_GetItem(cpy_r_weather_data, cpy_r_r9);
     if (unlikely(cpy_r_r10 == NULL)) {
@@ -540,8 +520,7 @@ CPyL7: ;
     cpy_r_r13 = cpy_r_r12 == -113.0;
     if (unlikely(cpy_r_r13)) goto CPyL9;
 CPyL8: ;
-    cpy_r_temp = cpy_r_r12;
-    cpy_r_r14 = cpy_r_feels_like >= 30.0;
+    cpy_r_r14 = cpy_r_r2 >= 30.0;
     if (cpy_r_r14) {
         goto CPyL10;
     } else
@@ -559,7 +538,7 @@ CPyL10: ;
     cpy_r_feels_like_emoji = cpy_r_r16;
     goto CPyL14;
 CPyL11: ;
-    cpy_r_r17 = cpy_r_feels_like >= 20.0;
+    cpy_r_r17 = cpy_r_r2 >= 20.0;
     if (!cpy_r_r17) goto CPyL13;
     cpy_r_r18 = CPyStatics[22]; /* '☁️' */
     CPy_INCREF(cpy_r_r18);
@@ -570,7 +549,7 @@ CPyL13: ;
     CPy_INCREF(cpy_r_r19);
     cpy_r_feels_like_emoji = cpy_r_r19;
 CPyL14: ;
-    cpy_r_r20 = cpy_r_humidity >= 70.0;
+    cpy_r_r20 = cpy_r_r7 >= 70.0;
     if (!cpy_r_r20) goto CPyL16;
     cpy_r_r21 = CPyStatics[24]; /* '💦' */
     CPy_INCREF(cpy_r_r21);
@@ -581,28 +560,28 @@ CPyL16: ;
     CPy_INCREF(cpy_r_r22);
     cpy_r_humidity_emoji = cpy_r_r22;
 CPyL17: ;
-    cpy_r_r23 = cpy_r_temp >= 30.0;
+    cpy_r_r23 = cpy_r_r12 >= 30.0;
     if (!cpy_r_r23) goto CPyL19;
     cpy_r_r24 = CPyStatics[26]; /* '🔥' */
     CPy_INCREF(cpy_r_r24);
     cpy_r_temp_emoji = cpy_r_r24;
     goto CPyL26;
 CPyL19: ;
-    cpy_r_r25 = cpy_r_temp >= 20.0;
+    cpy_r_r25 = cpy_r_r12 >= 20.0;
     if (!cpy_r_r25) goto CPyL21;
     cpy_r_r26 = CPyStatics[21]; /* '☀️' */
     CPy_INCREF(cpy_r_r26);
     cpy_r_temp_emoji = cpy_r_r26;
     goto CPyL26;
 CPyL21: ;
-    cpy_r_r27 = cpy_r_temp >= 10.0;
+    cpy_r_r27 = cpy_r_r12 >= 10.0;
     if (!cpy_r_r27) goto CPyL23;
     cpy_r_r28 = CPyStatics[27]; /* '🌡️' */
     CPy_INCREF(cpy_r_r28);
     cpy_r_temp_emoji = cpy_r_r28;
     goto CPyL26;
 CPyL23: ;
-    cpy_r_r29 = cpy_r_temp >= 0.0;
+    cpy_r_r29 = cpy_r_r12 >= 0.0;
     if (!cpy_r_r29) goto CPyL25;
     cpy_r_r30 = CPyStatics[23]; /* '❄️' */
     CPy_INCREF(cpy_r_r30);
@@ -658,7 +637,6 @@ fail: ;
 
 char CPyDef_main(void) {
     PyObject *cpy_r_r0;
-    PyObject *cpy_r_api_key;
     PyObject *cpy_r_r1;
     PyObject *cpy_r_r2;
     PyObject *cpy_r_r3;
@@ -666,14 +644,11 @@ char CPyDef_main(void) {
     PyObject **cpy_r_r6;
     PyObject *cpy_r_r7;
     PyObject *cpy_r_r8;
-    PyObject *cpy_r_city;
     tuple_T2OO cpy_r_r9;
     PyObject *cpy_r_r10;
     PyObject *cpy_r_r11;
-    PyObject *cpy_r_lat;
     PyObject *cpy_r_r12;
     PyObject *cpy_r_r13;
-    PyObject *cpy_r_lon;
     PyObject *cpy_r_r14;
     char cpy_r_r15;
     double cpy_r_r16;
@@ -696,17 +671,13 @@ char CPyDef_main(void) {
     PyObject *cpy_r_r33;
     PyObject *cpy_r_r34;
     PyObject *cpy_r_r35;
-    PyObject *cpy_r_weather_data;
     tuple_T3OOO cpy_r_r36;
     PyObject *cpy_r_r37;
     PyObject *cpy_r_r38;
-    PyObject *cpy_r_feels_like_emoji;
     PyObject *cpy_r_r39;
     PyObject *cpy_r_r40;
-    PyObject *cpy_r_humidity_emoji;
     PyObject *cpy_r_r41;
     PyObject *cpy_r_r42;
-    PyObject *cpy_r_temp_emoji;
     PyObject *cpy_r_r43;
     PyObject *cpy_r_r44;
     PyObject *cpy_r_r45;
@@ -785,7 +756,6 @@ char CPyDef_main(void) {
     char cpy_r_r124;
     cpy_r_r0 = CPyStatics[28]; /* '6686d8ea951a043615db0329e612361a' */
     CPy_INCREF(cpy_r_r0);
-    cpy_r_api_key = cpy_r_r0;
     cpy_r_r1 = CPyStatics[29]; /* 'Enter city name: ' */
     cpy_r_r2 = CPyModule_builtins;
     cpy_r_r3 = CPyStatics[30]; /* 'input' */
@@ -808,25 +778,22 @@ char CPyDef_main(void) {
         CPy_TypeErrorTraceback("main.py", "main", 67, CPyStatic_globals, "str", cpy_r_r7);
         goto CPyL56;
     }
-    cpy_r_city = cpy_r_r8;
-    cpy_r_r9 = CPyDef_get_coordinates(cpy_r_city, cpy_r_api_key);
-    CPy_DECREF(cpy_r_city);
+    cpy_r_r9 = CPyDef_get_coordinates(cpy_r_r8, cpy_r_r0);
+    CPy_DECREF(cpy_r_r8);
     if (unlikely(cpy_r_r9.f0 == NULL)) {
         CPy_AddTraceback("main.py", "main", 68, CPyStatic_globals);
         goto CPyL56;
     }
     cpy_r_r10 = cpy_r_r9.f0;
     cpy_r_r11 = cpy_r_r10;
-    cpy_r_lat = cpy_r_r11;
     cpy_r_r12 = cpy_r_r9.f1;
     cpy_r_r13 = cpy_r_r12;
-    cpy_r_lon = cpy_r_r13;
     cpy_r_r14 = (PyObject *)&_Py_NoneStruct;
-    cpy_r_r15 = cpy_r_lat != cpy_r_r14;
+    cpy_r_r15 = cpy_r_r11 != cpy_r_r14;
     if (!cpy_r_r15) goto CPyL57;
-    cpy_r_r16 = PyFloat_AsDouble(cpy_r_lat);
+    cpy_r_r16 = PyFloat_AsDouble(cpy_r_r11);
     if (cpy_r_r16 == -1.0 && PyErr_Occurred()) {
-        CPy_TypeError("float", cpy_r_lat); cpy_r_r16 = -113.0;
+        CPy_TypeError("float", cpy_r_r11); cpy_r_r16 = -113.0;
     }
     cpy_r_r17 = cpy_r_r16 == -113.0;
     if (unlikely(cpy_r_r17)) goto CPyL7;
@@ -845,11 +812,11 @@ CPyL7: ;
         goto CPyL6;
 CPyL8: ;
     cpy_r_r20 = (PyObject *)&_Py_NoneStruct;
-    cpy_r_r21 = cpy_r_lon != cpy_r_r20;
+    cpy_r_r21 = cpy_r_r13 != cpy_r_r20;
     if (!cpy_r_r21) goto CPyL57;
-    cpy_r_r22 = PyFloat_AsDouble(cpy_r_lon);
+    cpy_r_r22 = PyFloat_AsDouble(cpy_r_r13);
     if (cpy_r_r22 == -1.0 && PyErr_Occurred()) {
-        CPy_TypeError("float", cpy_r_lon); cpy_r_r22 = -113.0;
+        CPy_TypeError("float", cpy_r_r13); cpy_r_r22 = -113.0;
     }
     cpy_r_r23 = cpy_r_r22 == -113.0;
     if (unlikely(cpy_r_r23)) goto CPyL11;
@@ -867,19 +834,19 @@ CPyL11: ;
     } else
         goto CPyL10;
 CPyL12: ;
-    cpy_r_r26 = PyFloat_AsDouble(cpy_r_lat);
+    cpy_r_r26 = PyFloat_AsDouble(cpy_r_r11);
     if (cpy_r_r26 == -1.0 && PyErr_Occurred()) {
-        CPy_TypeError("float", cpy_r_lat); cpy_r_r26 = -113.0;
+        CPy_TypeError("float", cpy_r_r11); cpy_r_r26 = -113.0;
     }
-    CPy_DECREF(cpy_r_lat);
+    CPy_DECREF(cpy_r_r11);
     cpy_r_r27 = cpy_r_r26 == -113.0;
     if (unlikely(cpy_r_r27)) goto CPyL14;
 CPyL13: ;
-    cpy_r_r28 = PyFloat_AsDouble(cpy_r_lon);
+    cpy_r_r28 = PyFloat_AsDouble(cpy_r_r13);
     if (cpy_r_r28 == -1.0 && PyErr_Occurred()) {
-        CPy_TypeError("float", cpy_r_lon); cpy_r_r28 = -113.0;
+        CPy_TypeError("float", cpy_r_r13); cpy_r_r28 = -113.0;
     }
-    CPy_DECREF(cpy_r_lon);
+    CPy_DECREF(cpy_r_r13);
     cpy_r_r29 = cpy_r_r28 == -113.0;
     if (unlikely(cpy_r_r29)) {
         goto CPyL16;
@@ -893,8 +860,8 @@ CPyL14: ;
     } else
         goto CPyL13;
 CPyL15: ;
-    cpy_r_r31 = CPyDef_get_weather(cpy_r_r26, cpy_r_r28, cpy_r_api_key);
-    CPy_DECREF(cpy_r_api_key);
+    cpy_r_r31 = CPyDef_get_weather(cpy_r_r26, cpy_r_r28, cpy_r_r0);
+    CPy_DECREF(cpy_r_r0);
     if (unlikely(cpy_r_r31 == NULL)) {
         CPy_AddTraceback("main.py", "main", 70, CPyStatic_globals);
         goto CPyL55;
@@ -921,24 +888,20 @@ CPyL17: ;
         CPy_TypeErrorTraceback("main.py", "main", 70, CPyStatic_globals, "dict", cpy_r_r34);
         goto CPyL55;
     }
-    cpy_r_weather_data = cpy_r_r35;
-    cpy_r_r36 = CPyDef_determine_emojis(cpy_r_weather_data);
+    cpy_r_r36 = CPyDef_determine_emojis(cpy_r_r35);
     if (unlikely(cpy_r_r36.f0 == NULL)) {
         CPy_AddTraceback("main.py", "main", 71, CPyStatic_globals);
         goto CPyL60;
     }
     cpy_r_r37 = cpy_r_r36.f0;
     cpy_r_r38 = cpy_r_r37;
-    cpy_r_feels_like_emoji = cpy_r_r38;
     cpy_r_r39 = cpy_r_r36.f1;
     cpy_r_r40 = cpy_r_r39;
-    cpy_r_humidity_emoji = cpy_r_r40;
     cpy_r_r41 = cpy_r_r36.f2;
     cpy_r_r42 = cpy_r_r41;
-    cpy_r_temp_emoji = cpy_r_r42;
     cpy_r_r43 = CPyStatics[32]; /* 'Feels like: ' */
     cpy_r_r44 = CPyStatics[18]; /* 'feels_like' */
-    cpy_r_r45 = CPyDict_GetItem(cpy_r_weather_data, cpy_r_r44);
+    cpy_r_r45 = CPyDict_GetItem(cpy_r_r35, cpy_r_r44);
     if (unlikely(cpy_r_r45 == NULL)) {
         CPy_AddTraceback("main.py", "main", 72, CPyStatic_globals);
         goto CPyL61;
@@ -968,9 +931,9 @@ CPyL23: ;
         goto CPyL22;
 CPyL24: ;
     cpy_r_r51 = CPyStatics[33]; /* '° ' */
-    cpy_r_r52 = CPyStr_Build(4, cpy_r_r43, cpy_r_r49, cpy_r_r51, cpy_r_feels_like_emoji);
+    cpy_r_r52 = CPyStr_Build(4, cpy_r_r43, cpy_r_r49, cpy_r_r51, cpy_r_r38);
     CPy_DECREF(cpy_r_r49);
-    CPy_DECREF(cpy_r_feels_like_emoji);
+    CPy_DECREF(cpy_r_r38);
     if (unlikely(cpy_r_r52 == NULL)) {
         CPy_AddTraceback("main.py", "main", 72, CPyStatic_globals);
         goto CPyL62;
@@ -995,7 +958,7 @@ CPyL27: ;
     CPy_DECREF(cpy_r_r52);
     cpy_r_r59 = CPyStatics[35]; /* 'Humidity: ' */
     cpy_r_r60 = CPyStatics[19]; /* 'humidity' */
-    cpy_r_r61 = CPyDict_GetItem(cpy_r_weather_data, cpy_r_r60);
+    cpy_r_r61 = CPyDict_GetItem(cpy_r_r35, cpy_r_r60);
     if (unlikely(cpy_r_r61 == NULL)) {
         CPy_AddTraceback("main.py", "main", 73, CPyStatic_globals);
         goto CPyL62;
@@ -1025,9 +988,9 @@ CPyL30: ;
         goto CPyL29;
 CPyL31: ;
     cpy_r_r67 = CPyStatics[36]; /* '% ' */
-    cpy_r_r68 = CPyStr_Build(4, cpy_r_r59, cpy_r_r65, cpy_r_r67, cpy_r_humidity_emoji);
+    cpy_r_r68 = CPyStr_Build(4, cpy_r_r59, cpy_r_r65, cpy_r_r67, cpy_r_r40);
     CPy_DECREF(cpy_r_r65);
-    CPy_DECREF(cpy_r_humidity_emoji);
+    CPy_DECREF(cpy_r_r40);
     if (unlikely(cpy_r_r68 == NULL)) {
         CPy_AddTraceback("main.py", "main", 73, CPyStatic_globals);
         goto CPyL65;
@@ -1052,7 +1015,7 @@ CPyL34: ;
     CPy_DECREF(cpy_r_r68);
     cpy_r_r75 = CPyStatics[37]; /* 'Temperature: ' */
     cpy_r_r76 = CPyStatics[20]; /* 'temp' */
-    cpy_r_r77 = CPyDict_GetItem(cpy_r_weather_data, cpy_r_r76);
+    cpy_r_r77 = CPyDict_GetItem(cpy_r_r35, cpy_r_r76);
     if (unlikely(cpy_r_r77 == NULL)) {
         CPy_AddTraceback("main.py", "main", 74, CPyStatic_globals);
         goto CPyL65;
@@ -1082,9 +1045,9 @@ CPyL37: ;
         goto CPyL36;
 CPyL38: ;
     cpy_r_r83 = CPyStatics[33]; /* '° ' */
-    cpy_r_r84 = CPyStr_Build(4, cpy_r_r75, cpy_r_r81, cpy_r_r83, cpy_r_temp_emoji);
+    cpy_r_r84 = CPyStr_Build(4, cpy_r_r75, cpy_r_r81, cpy_r_r83, cpy_r_r42);
     CPy_DECREF(cpy_r_r81);
-    CPy_DECREF(cpy_r_temp_emoji);
+    CPy_DECREF(cpy_r_r42);
     if (unlikely(cpy_r_r84 == NULL)) {
         CPy_AddTraceback("main.py", "main", 74, CPyStatic_globals);
         goto CPyL60;
@@ -1109,7 +1072,7 @@ CPyL41: ;
     CPy_DECREF(cpy_r_r84);
     cpy_r_r91 = CPyStatics[38]; /* 'Temperature min:' */
     cpy_r_r92 = CPyStatics[39]; /* 'temp_min' */
-    cpy_r_r93 = CPyDict_GetItem(cpy_r_weather_data, cpy_r_r92);
+    cpy_r_r93 = CPyDict_GetItem(cpy_r_r35, cpy_r_r92);
     if (unlikely(cpy_r_r93 == NULL)) {
         CPy_AddTraceback("main.py", "main", 75, CPyStatic_globals);
         goto CPyL60;
@@ -1152,8 +1115,8 @@ CPyL46: ;
     CPy_DECREF(cpy_r_r100);
     cpy_r_r104 = CPyStatics[40]; /* 'Temperature max:' */
     cpy_r_r105 = CPyStatics[41]; /* 'temp_max' */
-    cpy_r_r106 = CPyDict_GetItem(cpy_r_weather_data, cpy_r_r105);
-    CPy_DECREF(cpy_r_weather_data);
+    cpy_r_r106 = CPyDict_GetItem(cpy_r_r35, cpy_r_r105);
+    CPy_DECREF(cpy_r_r35);
     if (unlikely(cpy_r_r106 == NULL)) {
         CPy_AddTraceback("main.py", "main", 76, CPyStatic_globals);
         goto CPyL55;
@@ -1219,66 +1182,66 @@ CPyL55: ;
     cpy_r_r124 = 2;
     return cpy_r_r124;
 CPyL56: ;
-    CPy_DecRef(cpy_r_api_key);
+    CPy_DecRef(cpy_r_r0);
     goto CPyL55;
 CPyL57: ;
-    CPy_DECREF(cpy_r_api_key);
-    CPy_DECREF(cpy_r_lat);
-    CPy_DECREF(cpy_r_lon);
+    CPy_DECREF(cpy_r_r0);
+    CPy_DECREF(cpy_r_r11);
+    CPy_DECREF(cpy_r_r13);
     goto CPyL52;
 CPyL58: ;
-    CPy_DecRef(cpy_r_api_key);
-    CPy_DecRef(cpy_r_lat);
-    CPy_DecRef(cpy_r_lon);
+    CPy_DecRef(cpy_r_r0);
+    CPy_DecRef(cpy_r_r11);
+    CPy_DecRef(cpy_r_r13);
     goto CPyL55;
 CPyL59: ;
-    CPy_DecRef(cpy_r_api_key);
-    CPy_DecRef(cpy_r_lon);
+    CPy_DecRef(cpy_r_r0);
+    CPy_DecRef(cpy_r_r13);
     goto CPyL55;
 CPyL60: ;
-    CPy_DecRef(cpy_r_weather_data);
+    CPy_DecRef(cpy_r_r35);
     goto CPyL55;
 CPyL61: ;
-    CPy_DecRef(cpy_r_weather_data);
-    CPy_DecRef(cpy_r_feels_like_emoji);
-    CPy_DecRef(cpy_r_humidity_emoji);
-    CPy_DecRef(cpy_r_temp_emoji);
+    CPy_DecRef(cpy_r_r35);
+    CPy_DecRef(cpy_r_r38);
+    CPy_DecRef(cpy_r_r40);
+    CPy_DecRef(cpy_r_r42);
     goto CPyL55;
 CPyL62: ;
-    CPy_DecRef(cpy_r_weather_data);
-    CPy_DecRef(cpy_r_humidity_emoji);
-    CPy_DecRef(cpy_r_temp_emoji);
+    CPy_DecRef(cpy_r_r35);
+    CPy_DecRef(cpy_r_r40);
+    CPy_DecRef(cpy_r_r42);
     goto CPyL55;
 CPyL63: ;
-    CPy_DecRef(cpy_r_weather_data);
-    CPy_DecRef(cpy_r_humidity_emoji);
-    CPy_DecRef(cpy_r_temp_emoji);
+    CPy_DecRef(cpy_r_r35);
+    CPy_DecRef(cpy_r_r40);
+    CPy_DecRef(cpy_r_r42);
     CPy_DecRef(cpy_r_r52);
     goto CPyL55;
 CPyL64: ;
     CPy_DECREF(cpy_r_r58);
     goto CPyL27;
 CPyL65: ;
-    CPy_DecRef(cpy_r_weather_data);
-    CPy_DecRef(cpy_r_temp_emoji);
+    CPy_DecRef(cpy_r_r35);
+    CPy_DecRef(cpy_r_r42);
     goto CPyL55;
 CPyL66: ;
-    CPy_DecRef(cpy_r_weather_data);
-    CPy_DecRef(cpy_r_temp_emoji);
+    CPy_DecRef(cpy_r_r35);
+    CPy_DecRef(cpy_r_r42);
     CPy_DecRef(cpy_r_r68);
     goto CPyL55;
 CPyL67: ;
     CPy_DECREF(cpy_r_r74);
     goto CPyL34;
 CPyL68: ;
-    CPy_DecRef(cpy_r_weather_data);
+    CPy_DecRef(cpy_r_r35);
     CPy_DecRef(cpy_r_r84);
     goto CPyL55;
 CPyL69: ;
     CPy_DECREF(cpy_r_r90);
     goto CPyL41;
 CPyL70: ;
-    CPy_DecRef(cpy_r_weather_data);
+    CPy_DecRef(cpy_r_r35);
     CPy_DecRef(cpy_r_r100);
     goto CPyL55;
 CPyL71: ;
@@ -1331,19 +1294,8 @@ char CPyDef___top_level__(void) {
     PyObject *cpy_r_r16;
     PyObject *cpy_r_r17;
     char cpy_r_r18;
-    PyObject *cpy_r_r19;
-    PyObject *cpy_r_r20;
-    PyObject *cpy_r_r21;
-    PyObject *cpy_r_r22;
-    PyObject *cpy_r_r23;
-    int32_t cpy_r_r24;
-    char cpy_r_r25;
-    PyObject *cpy_r_r26;
-    char cpy_r_r27;
-    char cpy_r_r28;
-    char cpy_r_r29;
-    char cpy_r_r30;
-    char cpy_r_r31;
+    char cpy_r_r19;
+    char cpy_r_r20;
     cpy_r_r0 = CPyModule_builtins;
     cpy_r_r1 = (PyObject *)&_Py_NoneStruct;
     cpy_r_r2 = cpy_r_r0 != cpy_r_r1;
@@ -1352,19 +1304,19 @@ char CPyDef___top_level__(void) {
     cpy_r_r4 = PyImport_Import(cpy_r_r3);
     if (unlikely(cpy_r_r4 == NULL)) {
         CPy_AddTraceback("main.py", "<module>", -1, CPyStatic_globals);
-        goto CPyL13;
+        goto CPyL7;
     }
     CPyModule_builtins = cpy_r_r4;
     CPy_INCREF(CPyModule_builtins);
     CPy_DECREF(cpy_r_r4);
 CPyL3: ;
-    cpy_r_r5 = CPyStatics[54]; /* ('Any',) */
+    cpy_r_r5 = CPyStatics[52]; /* ('Any',) */
     cpy_r_r6 = CPyStatics[45]; /* 'typing' */
     cpy_r_r7 = CPyStatic_globals;
     cpy_r_r8 = CPyImport_ImportFromMany(cpy_r_r6, cpy_r_r5, cpy_r_r5, cpy_r_r7);
     if (unlikely(cpy_r_r8 == NULL)) {
         CPy_AddTraceback("main.py", "<module>", 1, CPyStatic_globals);
-        goto CPyL13;
+        goto CPyL7;
     }
     CPyModule_typing = cpy_r_r8;
     CPy_INCREF(CPyModule_typing);
@@ -1374,51 +1326,21 @@ CPyL3: ;
     cpy_r_r11 = (void *)&cpy_r_r10;
     int64_t cpy_r_r12[1] = {2};
     cpy_r_r13 = (void *)&cpy_r_r12;
-    cpy_r_r14 = CPyStatics[56]; /* (('requests', 'requests', 'requests'),) */
+    cpy_r_r14 = CPyStatics[54]; /* (('requests', 'requests', 'requests'),) */
     cpy_r_r15 = CPyStatic_globals;
     cpy_r_r16 = CPyStatics[47]; /* 'main.py' */
     cpy_r_r17 = CPyStatics[48]; /* '<module>' */
     cpy_r_r18 = CPyImport_ImportMany(cpy_r_r14, cpy_r_r11, cpy_r_r15, cpy_r_r16, cpy_r_r17, cpy_r_r13);
-    if (!cpy_r_r18) goto CPyL13;
-    cpy_r_r19 = CPyStatic_globals;
-    cpy_r_r20 = CPyStatics[49]; /* '__name__' */
-    cpy_r_r21 = CPyDict_GetItem(cpy_r_r19, cpy_r_r20);
-    if (unlikely(cpy_r_r21 == NULL)) {
+    if (!cpy_r_r18) goto CPyL7;
+    cpy_r_r19 = CPyDef_main();
+    if (unlikely(cpy_r_r19 == 2)) {
         CPy_AddTraceback("main.py", "<module>", 81, CPyStatic_globals);
-        goto CPyL13;
+        goto CPyL7;
     }
-    if (likely(PyUnicode_Check(cpy_r_r21)))
-        cpy_r_r22 = cpy_r_r21;
-    else {
-        CPy_TypeErrorTraceback("main.py", "<module>", 81, CPyStatic_globals, "str", cpy_r_r21);
-        goto CPyL13;
-    }
-    cpy_r_r23 = CPyStatics[50]; /* '__main__' */
-    cpy_r_r24 = PyUnicode_Compare(cpy_r_r22, cpy_r_r23);
-    CPy_DECREF(cpy_r_r22);
-    cpy_r_r25 = cpy_r_r24 == -1;
-    if (!cpy_r_r25) goto CPyL10;
-    cpy_r_r26 = PyErr_Occurred();
-    cpy_r_r27 = cpy_r_r26 != NULL;
-    if (!cpy_r_r27) goto CPyL10;
-    cpy_r_r28 = CPy_KeepPropagating();
-    if (unlikely(!cpy_r_r28)) {
-        CPy_AddTraceback("main.py", "<module>", 81, CPyStatic_globals);
-        goto CPyL13;
-    }
-CPyL10: ;
-    cpy_r_r29 = cpy_r_r24 == 0;
-    if (!cpy_r_r29) goto CPyL12;
-    cpy_r_r30 = CPyDef_main();
-    if (unlikely(cpy_r_r30 == 2)) {
-        CPy_AddTraceback("main.py", "<module>", 82, CPyStatic_globals);
-        goto CPyL13;
-    }
-CPyL12: ;
     return 1;
-CPyL13: ;
-    cpy_r_r31 = 2;
-    return cpy_r_r31;
+CPyL7: ;
+    cpy_r_r20 = 2;
+    return cpy_r_r20;
 }
 
 int CPyGlobalsInit(void)
@@ -1438,7 +1360,7 @@ int CPyGlobalsInit(void)
     return 0;
 }
 
-PyObject *CPyStatics[57];
+PyObject *CPyStatics[55];
 const char * const CPyLit_Str[] = {
     "\006,http://api.openweathermap.org/geo/1.0/direct\001q\005{:{}}\000\006format\005limit",
     "\006\005appid\003get\006params\004json\003lat\003lon",
@@ -1447,7 +1369,7 @@ const char * const CPyLit_Str[] = {
     "\004 6686d8ea951a043615db0329e612361a\021Enter city name: \005input\004main",
     "\a\fFeels like: \003\302\260 \005print\nHumidity: \002% \rTemperature: \020Temperature min:",
     "\006\btemp_min\020Temperature max:\btemp_max\017City not found.\bbuiltins\003Any",
-    "\006\006typing\brequests\amain.py\b<module>\b__name__\b__main__",
+    "\004\006typing\brequests\amain.py\b<module>",
     "",
 };
 const char * const CPyLit_Bytes[] = {
@@ -1459,7 +1381,7 @@ const char * const CPyLit_Int[] = {
 };
 const double CPyLit_Float[] = {0};
 const double CPyLit_Complex[] = {0};
-const int CPyLit_Tuple[] = {4, 1, 11, 1, 44, 3, 46, 46, 46, 1, 55};
+const int CPyLit_Tuple[] = {4, 1, 11, 1, 44, 3, 46, 46, 46, 1, 53};
 const int CPyLit_FrozenSet[] = {0};
 CPyModule *CPyModule_main_internal = NULL;
 CPyModule *CPyModule_main;
