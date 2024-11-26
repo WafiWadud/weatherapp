@@ -6,8 +6,7 @@ def get_coordinates(city: str, api_key: str) -> tuple[float | None, float | None
     base_url: str = "http://api.openweathermap.org/geo/1.0/direct"
     params: dict[str, str | int] = {"q": f"{city}", "limit": 1, "appid": api_key}
     response: requests.Response = requests.get(base_url, params=params)
-    data: Any = response.json()
-    if data:
+    if data := response.json():
         return data[0]["lat"], data[0]["lon"]
     else:
         return None, None
@@ -40,11 +39,7 @@ def determine_emojis(weather_data: dict[str, float]) -> tuple[str, str, str]:
         feels_like_emoji = "❄️"  # Snowflake
 
     # Determine emojis based on humidity
-    if humidity >= 70:
-        humidity_emoji = "💦"  # Sweat Droplets
-    else:
-        humidity_emoji = "💧"  # Droplet
-
+    humidity_emoji = "💦" if humidity >= 70 else "💧"
     # Determine emojis based on temperature in Celsius
     if temp >= 30:
         temp_emoji = "🔥"  # Fire
@@ -52,11 +47,8 @@ def determine_emojis(weather_data: dict[str, float]) -> tuple[str, str, str]:
         temp_emoji = "☀️"  # Sunny
     elif temp >= 10:
         temp_emoji = "🌡️"  # Hot Face
-    elif temp >= 0:
-        temp_emoji = "❄️"  # Snowflake
     else:
-        temp_emoji = "❄️"  # Snowflake (for temperatures below 0°C)
-
+        temp_emoji = "❄️"  # Snowflake
     return feels_like_emoji, humidity_emoji, temp_emoji
 
 
@@ -67,15 +59,19 @@ def main() -> None:
     city: str = input("Enter city name: ")
     lat, lon = get_coordinates(city, api_key)
     if lat and lon:
-        weather_data: dict[str, float] = get_weather(lat, lon, api_key)["main"]
-        feels_like_emoji, humidity_emoji, temp_emoji = determine_emojis(weather_data)
-        print(f"Feels like: {weather_data['feels_like']}° {feels_like_emoji}")
-        print(f"Humidity: {weather_data['humidity']}% {humidity_emoji}")
-        print(f"Temperature: {weather_data['temp']}° {temp_emoji}")
-        print("Temperature min:", weather_data["temp_min"])
-        print("Temperature max:", weather_data["temp_max"])
+        display_weather(lat, lon, api_key)
     else:
         print("City not found.")
+
+
+def display_weather(lat, lon, api_key):
+    weather_data: dict[str, float] = get_weather(lat, lon, api_key)["main"]
+    feels_like_emoji, humidity_emoji, temp_emoji = determine_emojis(weather_data)
+    print(f"Feels like: {weather_data['feels_like']}° {feels_like_emoji}")
+    print(f"Humidity: {weather_data['humidity']}% {humidity_emoji}")
+    print(f"Temperature: {weather_data['temp']}° {temp_emoji}")
+    print("Temperature min:", weather_data["temp_min"])
+    print("Temperature max:", weather_data["temp_max"])
 
 
 main()
