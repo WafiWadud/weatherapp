@@ -64,7 +64,7 @@ def main() -> None:
         print("City not found.")
 
 
-def display_weather(lat, lon, api_key):
+def display_weather(lat, lon, api_key) -> None:
     weather_data: dict[str, float] = get_weather(lat, lon, api_key)["main"]
     feels_like_emoji, humidity_emoji, temp_emoji = determine_emojis(weather_data)
     print(f"Feels like: {weather_data['feels_like']}° {feels_like_emoji}")

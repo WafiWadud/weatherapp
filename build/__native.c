@@ -20,6 +20,7 @@ static PyMethodDef module_methods[] = {
     {"get_weather", (PyCFunction)CPyPy_get_weather, METH_FASTCALL | METH_KEYWORDS, NULL /* docstring */},
     {"determine_emojis", (PyCFunction)CPyPy_determine_emojis, METH_FASTCALL | METH_KEYWORDS, NULL /* docstring */},
     {"main", (PyCFunction)CPyPy_main, METH_FASTCALL | METH_KEYWORDS, NULL /* docstring */},
+    {"display_weather", (PyCFunction)CPyPy_display_weather, METH_FASTCALL | METH_KEYWORDS, NULL /* docstring */},
     {NULL, NULL, 0, NULL}
 };
 
@@ -156,7 +157,9 @@ tuple_T2OO CPyDef_get_coordinates(PyObject *cpy_r_city, PyObject *cpy_r_api_key)
         goto CPyL19;
     }
     CPy_DECREF(cpy_r_r19);
+    CPy_INCREF(cpy_r_r23);
     cpy_r_r24 = PyObject_IsTrue(cpy_r_r23);
+    CPy_DECREF(cpy_r_r23);
     cpy_r_r25 = cpy_r_r24 >= 0;
     if (unlikely(!cpy_r_r25)) {
         CPy_AddTraceback("main.py", "get_coordinates", 9, CPyStatic_globals);
@@ -167,28 +170,28 @@ tuple_T2OO CPyDef_get_coordinates(PyObject *cpy_r_city, PyObject *cpy_r_api_key)
     cpy_r_r27 = CPyStatics[50]; /* 0 */
     cpy_r_r28 = PyObject_GetItem(cpy_r_r23, cpy_r_r27);
     if (unlikely(cpy_r_r28 == NULL)) {
-        CPy_AddTraceback("main.py", "get_coordinates", 11, CPyStatic_globals);
+        CPy_AddTraceback("main.py", "get_coordinates", 10, CPyStatic_globals);
         goto CPyL20;
     }
     cpy_r_r29 = CPyStatics[13]; /* 'lat' */
     cpy_r_r30 = PyObject_GetItem(cpy_r_r28, cpy_r_r29);
     CPy_DECREF(cpy_r_r28);
     if (unlikely(cpy_r_r30 == NULL)) {
-        CPy_AddTraceback("main.py", "get_coordinates", 11, CPyStatic_globals);
+        CPy_AddTraceback("main.py", "get_coordinates", 10, CPyStatic_globals);
         goto CPyL20;
     }
     cpy_r_r31 = CPyStatics[50]; /* 0 */
     cpy_r_r32 = PyObject_GetItem(cpy_r_r23, cpy_r_r31);
     CPy_DECREF(cpy_r_r23);
     if (unlikely(cpy_r_r32 == NULL)) {
-        CPy_AddTraceback("main.py", "get_coordinates", 11, CPyStatic_globals);
+        CPy_AddTraceback("main.py", "get_coordinates", 10, CPyStatic_globals);
         goto CPyL22;
     }
     cpy_r_r33 = CPyStatics[14]; /* 'lon' */
     cpy_r_r34 = PyObject_GetItem(cpy_r_r32, cpy_r_r33);
     CPy_DECREF(cpy_r_r32);
     if (unlikely(cpy_r_r34 == NULL)) {
-        CPy_AddTraceback("main.py", "get_coordinates", 11, CPyStatic_globals);
+        CPy_AddTraceback("main.py", "get_coordinates", 10, CPyStatic_globals);
         goto CPyL22;
     }
     CPy_INCREF(cpy_r_r30);
@@ -209,7 +212,7 @@ tuple_T2OO CPyDef_get_coordinates(PyObject *cpy_r_city, PyObject *cpy_r_api_key)
         cpy_r_r36 = NULL;
     }
     if (cpy_r_r36 != NULL) goto __LL1;
-    CPy_TypeErrorTraceback("main.py", "get_coordinates", 11, CPyStatic_globals, "float or None", cpy_r_r30);
+    CPy_TypeErrorTraceback("main.py", "get_coordinates", 10, CPyStatic_globals, "float or None", cpy_r_r30);
     goto CPyL23;
 __LL1: ;
     if (CPyFloat_Check(cpy_r_r34))
@@ -224,7 +227,7 @@ __LL1: ;
         cpy_r_r37 = NULL;
     }
     if (cpy_r_r37 != NULL) goto __LL2;
-    CPy_TypeErrorTraceback("main.py", "get_coordinates", 11, CPyStatic_globals, "float or None", cpy_r_r34);
+    CPy_TypeErrorTraceback("main.py", "get_coordinates", 10, CPyStatic_globals, "float or None", cpy_r_r34);
     goto CPyL24;
 __LL2: ;
     cpy_r_r38.f0 = cpy_r_r36;
@@ -343,14 +346,14 @@ PyObject *CPyDef_get_weather(double cpy_r_lat, double cpy_r_lon, PyObject *cpy_r
     CPy_DECREF(cpy_r_r6);
     CPy_DECREF(cpy_r_r7);
     if (unlikely(cpy_r_r8 == NULL)) {
-        CPy_AddTraceback("main.py", "get_weather", 18, CPyStatic_globals);
+        CPy_AddTraceback("main.py", "get_weather", 17, CPyStatic_globals);
         goto CPyL6;
     }
     cpy_r_r9 = CPyModule_requests;
     cpy_r_r10 = CPyStatics[10]; /* 'get' */
     cpy_r_r11 = CPyObject_GetAttr(cpy_r_r9, cpy_r_r10);
     if (unlikely(cpy_r_r11 == NULL)) {
-        CPy_AddTraceback("main.py", "get_weather", 24, CPyStatic_globals);
+        CPy_AddTraceback("main.py", "get_weather", 23, CPyStatic_globals);
         goto CPyL7;
     }
     PyObject *cpy_r_r12[2] = {cpy_r_r0, cpy_r_r8};
@@ -359,7 +362,7 @@ PyObject *CPyDef_get_weather(double cpy_r_lat, double cpy_r_lon, PyObject *cpy_r
     cpy_r_r15 = _PyObject_Vectorcall(cpy_r_r11, cpy_r_r13, 1, cpy_r_r14);
     CPy_DECREF(cpy_r_r11);
     if (unlikely(cpy_r_r15 == NULL)) {
-        CPy_AddTraceback("main.py", "get_weather", 24, CPyStatic_globals);
+        CPy_AddTraceback("main.py", "get_weather", 23, CPyStatic_globals);
         goto CPyL7;
     }
     CPy_DECREF(cpy_r_r0);
@@ -369,7 +372,7 @@ PyObject *CPyDef_get_weather(double cpy_r_lat, double cpy_r_lon, PyObject *cpy_r
     cpy_r_r18 = (PyObject **)&cpy_r_r17;
     cpy_r_r19 = PyObject_VectorcallMethod(cpy_r_r16, cpy_r_r18, 9223372036854775809ULL, 0);
     if (unlikely(cpy_r_r19 == NULL)) {
-        CPy_AddTraceback("main.py", "get_weather", 25, CPyStatic_globals);
+        CPy_AddTraceback("main.py", "get_weather", 24, CPyStatic_globals);
         goto CPyL8;
     }
     CPy_DECREF(cpy_r_r15);
@@ -418,7 +421,7 @@ PyObject *CPyPy_get_weather(PyObject *self, PyObject *const *args, size_t nargs,
     PyObject *retval = CPyDef_get_weather(arg_lat, arg_lon, arg_api_key);
     return retval;
 fail: ;
-    CPy_AddTraceback("main.py", "get_weather", 16, CPyStatic_globals);
+    CPy_AddTraceback("main.py", "get_weather", 15, CPyStatic_globals);
     return NULL;
 }
 
@@ -446,25 +449,24 @@ tuple_T3OOO CPyDef_determine_emojis(PyObject *cpy_r_weather_data) {
     PyObject *cpy_r_r19;
     char cpy_r_r20;
     PyObject *cpy_r_r21;
-    PyObject *cpy_r_humidity_emoji;
     PyObject *cpy_r_r22;
-    char cpy_r_r23;
-    PyObject *cpy_r_r24;
+    PyObject *cpy_r_r23;
+    PyObject *cpy_r_humidity_emoji;
+    char cpy_r_r24;
+    PyObject *cpy_r_r25;
     PyObject *cpy_r_temp_emoji;
-    char cpy_r_r25;
-    PyObject *cpy_r_r26;
-    char cpy_r_r27;
-    PyObject *cpy_r_r28;
-    char cpy_r_r29;
+    char cpy_r_r26;
+    PyObject *cpy_r_r27;
+    char cpy_r_r28;
+    PyObject *cpy_r_r29;
     PyObject *cpy_r_r30;
-    PyObject *cpy_r_r31;
+    tuple_T3OOO cpy_r_r31;
     tuple_T3OOO cpy_r_r32;
-    tuple_T3OOO cpy_r_r33;
     cpy_r_r0 = CPyStatics[18]; /* 'feels_like' */
     cpy_r_r1 = CPyDict_GetItem(cpy_r_weather_data, cpy_r_r0);
     if (unlikely(cpy_r_r1 == NULL)) {
-        CPy_AddTraceback("main.py", "determine_emojis", 30, CPyStatic_globals);
-        goto CPyL27;
+        CPy_AddTraceback("main.py", "determine_emojis", 29, CPyStatic_globals);
+        goto CPyL25;
     }
     cpy_r_r2 = PyFloat_AsDouble(cpy_r_r1);
     if (cpy_r_r2 == -1.0 && PyErr_Occurred()) {
@@ -477,15 +479,15 @@ CPyL2: ;
     cpy_r_r4 = CPyStatics[19]; /* 'humidity' */
     cpy_r_r5 = CPyDict_GetItem(cpy_r_weather_data, cpy_r_r4);
     if (unlikely(cpy_r_r5 == NULL)) {
-        CPy_AddTraceback("main.py", "determine_emojis", 31, CPyStatic_globals);
-        goto CPyL27;
+        CPy_AddTraceback("main.py", "determine_emojis", 30, CPyStatic_globals);
+        goto CPyL25;
     } else
         goto CPyL4;
 CPyL3: ;
     cpy_r_r6 = PyErr_Occurred();
     if (unlikely(cpy_r_r6 != NULL)) {
-        CPy_AddTraceback("main.py", "determine_emojis", 30, CPyStatic_globals);
-        goto CPyL27;
+        CPy_AddTraceback("main.py", "determine_emojis", 29, CPyStatic_globals);
+        goto CPyL25;
     } else
         goto CPyL2;
 CPyL4: ;
@@ -500,15 +502,15 @@ CPyL5: ;
     cpy_r_r9 = CPyStatics[20]; /* 'temp' */
     cpy_r_r10 = CPyDict_GetItem(cpy_r_weather_data, cpy_r_r9);
     if (unlikely(cpy_r_r10 == NULL)) {
-        CPy_AddTraceback("main.py", "determine_emojis", 32, CPyStatic_globals);
-        goto CPyL27;
+        CPy_AddTraceback("main.py", "determine_emojis", 31, CPyStatic_globals);
+        goto CPyL25;
     } else
         goto CPyL7;
 CPyL6: ;
     cpy_r_r11 = PyErr_Occurred();
     if (unlikely(cpy_r_r11 != NULL)) {
-        CPy_AddTraceback("main.py", "determine_emojis", 31, CPyStatic_globals);
-        goto CPyL27;
+        CPy_AddTraceback("main.py", "determine_emojis", 30, CPyStatic_globals);
+        goto CPyL25;
     } else
         goto CPyL5;
 CPyL7: ;
@@ -528,8 +530,8 @@ CPyL8: ;
 CPyL9: ;
     cpy_r_r15 = PyErr_Occurred();
     if (unlikely(cpy_r_r15 != NULL)) {
-        CPy_AddTraceback("main.py", "determine_emojis", 32, CPyStatic_globals);
-        goto CPyL27;
+        CPy_AddTraceback("main.py", "determine_emojis", 31, CPyStatic_globals);
+        goto CPyL25;
     } else
         goto CPyL8;
 CPyL10: ;
@@ -553,53 +555,47 @@ CPyL14: ;
     if (!cpy_r_r20) goto CPyL16;
     cpy_r_r21 = CPyStatics[24]; /* '💦' */
     CPy_INCREF(cpy_r_r21);
-    cpy_r_humidity_emoji = cpy_r_r21;
+    cpy_r_r22 = cpy_r_r21;
     goto CPyL17;
 CPyL16: ;
-    cpy_r_r22 = CPyStatics[25]; /* '💧' */
-    CPy_INCREF(cpy_r_r22);
-    cpy_r_humidity_emoji = cpy_r_r22;
+    cpy_r_r23 = CPyStatics[25]; /* '💧' */
+    CPy_INCREF(cpy_r_r23);
+    cpy_r_r22 = cpy_r_r23;
 CPyL17: ;
-    cpy_r_r23 = cpy_r_r12 >= 30.0;
-    if (!cpy_r_r23) goto CPyL19;
-    cpy_r_r24 = CPyStatics[26]; /* '🔥' */
-    CPy_INCREF(cpy_r_r24);
-    cpy_r_temp_emoji = cpy_r_r24;
-    goto CPyL26;
+    cpy_r_humidity_emoji = cpy_r_r22;
+    cpy_r_r24 = cpy_r_r12 >= 30.0;
+    if (!cpy_r_r24) goto CPyL19;
+    cpy_r_r25 = CPyStatics[26]; /* '🔥' */
+    CPy_INCREF(cpy_r_r25);
+    cpy_r_temp_emoji = cpy_r_r25;
+    goto CPyL24;
 CPyL19: ;
-    cpy_r_r25 = cpy_r_r12 >= 20.0;
-    if (!cpy_r_r25) goto CPyL21;
-    cpy_r_r26 = CPyStatics[21]; /* '☀️' */
-    CPy_INCREF(cpy_r_r26);
-    cpy_r_temp_emoji = cpy_r_r26;
-    goto CPyL26;
+    cpy_r_r26 = cpy_r_r12 >= 20.0;
+    if (!cpy_r_r26) goto CPyL21;
+    cpy_r_r27 = CPyStatics[21]; /* '☀️' */
+    CPy_INCREF(cpy_r_r27);
+    cpy_r_temp_emoji = cpy_r_r27;
+    goto CPyL24;
 CPyL21: ;
-    cpy_r_r27 = cpy_r_r12 >= 10.0;
-    if (!cpy_r_r27) goto CPyL23;
-    cpy_r_r28 = CPyStatics[27]; /* '🌡️' */
-    CPy_INCREF(cpy_r_r28);
-    cpy_r_temp_emoji = cpy_r_r28;
-    goto CPyL26;
+    cpy_r_r28 = cpy_r_r12 >= 10.0;
+    if (!cpy_r_r28) goto CPyL23;
+    cpy_r_r29 = CPyStatics[27]; /* '🌡️' */
+    CPy_INCREF(cpy_r_r29);
+    cpy_r_temp_emoji = cpy_r_r29;
+    goto CPyL24;
 CPyL23: ;
-    cpy_r_r29 = cpy_r_r12 >= 0.0;
-    if (!cpy_r_r29) goto CPyL25;
     cpy_r_r30 = CPyStatics[23]; /* '❄️' */
     CPy_INCREF(cpy_r_r30);
     cpy_r_temp_emoji = cpy_r_r30;
-    goto CPyL26;
+CPyL24: ;
+    cpy_r_r31.f0 = cpy_r_feels_like_emoji;
+    cpy_r_r31.f1 = cpy_r_humidity_emoji;
+    cpy_r_r31.f2 = cpy_r_temp_emoji;
+    return cpy_r_r31;
 CPyL25: ;
-    cpy_r_r31 = CPyStatics[23]; /* '❄️' */
-    CPy_INCREF(cpy_r_r31);
-    cpy_r_temp_emoji = cpy_r_r31;
-CPyL26: ;
-    cpy_r_r32.f0 = cpy_r_feels_like_emoji;
-    cpy_r_r32.f1 = cpy_r_humidity_emoji;
-    cpy_r_r32.f2 = cpy_r_temp_emoji;
-    return cpy_r_r32;
-CPyL27: ;
     tuple_T3OOO __tmp6 = { NULL, NULL, NULL };
-    cpy_r_r33 = __tmp6;
-    return cpy_r_r33;
+    cpy_r_r32 = __tmp6;
+    return cpy_r_r32;
 }
 
 PyObject *CPyPy_determine_emojis(PyObject *self, PyObject *const *args, size_t nargs, PyObject *kwnames) {
@@ -631,7 +627,7 @@ PyObject *CPyPy_determine_emojis(PyObject *self, PyObject *const *args, size_t n
     PyTuple_SET_ITEM(retbox, 2, __tmp9);
     return retbox;
 fail: ;
-    CPy_AddTraceback("main.py", "determine_emojis", 29, CPyStatic_globals);
+    CPy_AddTraceback("main.py", "determine_emojis", 28, CPyStatic_globals);
     return NULL;
 }
 
@@ -668,92 +664,15 @@ char CPyDef_main(void) {
     PyObject *cpy_r_r30;
     PyObject *cpy_r_r31;
     PyObject *cpy_r_r32;
-    PyObject *cpy_r_r33;
+    char cpy_r_r33;
     PyObject *cpy_r_r34;
     PyObject *cpy_r_r35;
-    tuple_T3OOO cpy_r_r36;
+    PyObject *cpy_r_r36;
     PyObject *cpy_r_r37;
     PyObject *cpy_r_r38;
-    PyObject *cpy_r_r39;
-    PyObject *cpy_r_r40;
+    PyObject **cpy_r_r40;
     PyObject *cpy_r_r41;
-    PyObject *cpy_r_r42;
-    PyObject *cpy_r_r43;
-    PyObject *cpy_r_r44;
-    PyObject *cpy_r_r45;
-    double cpy_r_r46;
-    char cpy_r_r47;
-    PyObject *cpy_r_r48;
-    PyObject *cpy_r_r49;
-    PyObject *cpy_r_r50;
-    PyObject *cpy_r_r51;
-    PyObject *cpy_r_r52;
-    PyObject *cpy_r_r53;
-    PyObject *cpy_r_r54;
-    PyObject *cpy_r_r55;
-    PyObject **cpy_r_r57;
-    PyObject *cpy_r_r58;
-    PyObject *cpy_r_r59;
-    PyObject *cpy_r_r60;
-    PyObject *cpy_r_r61;
-    double cpy_r_r62;
-    char cpy_r_r63;
-    PyObject *cpy_r_r64;
-    PyObject *cpy_r_r65;
-    PyObject *cpy_r_r66;
-    PyObject *cpy_r_r67;
-    PyObject *cpy_r_r68;
-    PyObject *cpy_r_r69;
-    PyObject *cpy_r_r70;
-    PyObject *cpy_r_r71;
-    PyObject **cpy_r_r73;
-    PyObject *cpy_r_r74;
-    PyObject *cpy_r_r75;
-    PyObject *cpy_r_r76;
-    PyObject *cpy_r_r77;
-    double cpy_r_r78;
-    char cpy_r_r79;
-    PyObject *cpy_r_r80;
-    PyObject *cpy_r_r81;
-    PyObject *cpy_r_r82;
-    PyObject *cpy_r_r83;
-    PyObject *cpy_r_r84;
-    PyObject *cpy_r_r85;
-    PyObject *cpy_r_r86;
-    PyObject *cpy_r_r87;
-    PyObject **cpy_r_r89;
-    PyObject *cpy_r_r90;
-    PyObject *cpy_r_r91;
-    PyObject *cpy_r_r92;
-    PyObject *cpy_r_r93;
-    double cpy_r_r94;
-    char cpy_r_r95;
-    PyObject *cpy_r_r96;
-    PyObject *cpy_r_r97;
-    PyObject *cpy_r_r98;
-    PyObject *cpy_r_r99;
-    PyObject *cpy_r_r100;
-    PyObject **cpy_r_r102;
-    PyObject *cpy_r_r103;
-    PyObject *cpy_r_r104;
-    PyObject *cpy_r_r105;
-    PyObject *cpy_r_r106;
-    double cpy_r_r107;
-    char cpy_r_r108;
-    PyObject *cpy_r_r109;
-    PyObject *cpy_r_r110;
-    PyObject *cpy_r_r111;
-    PyObject *cpy_r_r112;
-    PyObject *cpy_r_r113;
-    PyObject **cpy_r_r115;
-    PyObject *cpy_r_r116;
-    PyObject *cpy_r_r117;
-    PyObject *cpy_r_r118;
-    PyObject *cpy_r_r119;
-    PyObject *cpy_r_r120;
-    PyObject **cpy_r_r122;
-    PyObject *cpy_r_r123;
-    char cpy_r_r124;
+    char cpy_r_r42;
     cpy_r_r0 = CPyStatics[28]; /* '6686d8ea951a043615db0329e612361a' */
     CPy_INCREF(cpy_r_r0);
     cpy_r_r1 = CPyStatics[29]; /* 'Enter city name: ' */
@@ -761,28 +680,28 @@ char CPyDef_main(void) {
     cpy_r_r3 = CPyStatics[30]; /* 'input' */
     cpy_r_r4 = CPyObject_GetAttr(cpy_r_r2, cpy_r_r3);
     if (unlikely(cpy_r_r4 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 67, CPyStatic_globals);
-        goto CPyL56;
+        CPy_AddTraceback("main.py", "main", 59, CPyStatic_globals);
+        goto CPyL21;
     }
     PyObject *cpy_r_r5[1] = {cpy_r_r1};
     cpy_r_r6 = (PyObject **)&cpy_r_r5;
     cpy_r_r7 = _PyObject_Vectorcall(cpy_r_r4, cpy_r_r6, 1, 0);
     CPy_DECREF(cpy_r_r4);
     if (unlikely(cpy_r_r7 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 67, CPyStatic_globals);
-        goto CPyL56;
+        CPy_AddTraceback("main.py", "main", 59, CPyStatic_globals);
+        goto CPyL21;
     }
     if (likely(PyUnicode_Check(cpy_r_r7)))
         cpy_r_r8 = cpy_r_r7;
     else {
-        CPy_TypeErrorTraceback("main.py", "main", 67, CPyStatic_globals, "str", cpy_r_r7);
-        goto CPyL56;
+        CPy_TypeErrorTraceback("main.py", "main", 59, CPyStatic_globals, "str", cpy_r_r7);
+        goto CPyL21;
     }
     cpy_r_r9 = CPyDef_get_coordinates(cpy_r_r8, cpy_r_r0);
     CPy_DECREF(cpy_r_r8);
     if (unlikely(cpy_r_r9.f0 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 68, CPyStatic_globals);
-        goto CPyL56;
+        CPy_AddTraceback("main.py", "main", 60, CPyStatic_globals);
+        goto CPyL21;
     }
     cpy_r_r10 = cpy_r_r9.f0;
     cpy_r_r11 = cpy_r_r10;
@@ -790,7 +709,7 @@ char CPyDef_main(void) {
     cpy_r_r13 = cpy_r_r12;
     cpy_r_r14 = (PyObject *)&_Py_NoneStruct;
     cpy_r_r15 = cpy_r_r11 != cpy_r_r14;
-    if (!cpy_r_r15) goto CPyL57;
+    if (!cpy_r_r15) goto CPyL22;
     cpy_r_r16 = PyFloat_AsDouble(cpy_r_r11);
     if (cpy_r_r16 == -1.0 && PyErr_Occurred()) {
         CPy_TypeError("float", cpy_r_r11); cpy_r_r16 = -113.0;
@@ -802,18 +721,18 @@ CPyL6: ;
     if (cpy_r_r18) {
         goto CPyL8;
     } else
-        goto CPyL57;
+        goto CPyL22;
 CPyL7: ;
     cpy_r_r19 = PyErr_Occurred();
     if (unlikely(cpy_r_r19 != NULL)) {
-        CPy_AddTraceback("main.py", "main", 68, CPyStatic_globals);
-        goto CPyL58;
+        CPy_AddTraceback("main.py", "main", 60, CPyStatic_globals);
+        goto CPyL23;
     } else
         goto CPyL6;
 CPyL8: ;
     cpy_r_r20 = (PyObject *)&_Py_NoneStruct;
     cpy_r_r21 = cpy_r_r13 != cpy_r_r20;
-    if (!cpy_r_r21) goto CPyL57;
+    if (!cpy_r_r21) goto CPyL22;
     cpy_r_r22 = PyFloat_AsDouble(cpy_r_r13);
     if (cpy_r_r22 == -1.0 && PyErr_Occurred()) {
         CPy_TypeError("float", cpy_r_r13); cpy_r_r22 = -113.0;
@@ -825,12 +744,12 @@ CPyL10: ;
     if (cpy_r_r24) {
         goto CPyL12;
     } else
-        goto CPyL57;
+        goto CPyL22;
 CPyL11: ;
     cpy_r_r25 = PyErr_Occurred();
     if (unlikely(cpy_r_r25 != NULL)) {
-        CPy_AddTraceback("main.py", "main", 68, CPyStatic_globals);
-        goto CPyL58;
+        CPy_AddTraceback("main.py", "main", 60, CPyStatic_globals);
+        goto CPyL23;
     } else
         goto CPyL10;
 CPyL12: ;
@@ -855,407 +774,72 @@ CPyL13: ;
 CPyL14: ;
     cpy_r_r30 = PyErr_Occurred();
     if (unlikely(cpy_r_r30 != NULL)) {
-        CPy_AddTraceback("main.py", "main", 70, CPyStatic_globals);
-        goto CPyL59;
+        CPy_AddTraceback("main.py", "main", 62, CPyStatic_globals);
+        goto CPyL24;
     } else
         goto CPyL13;
 CPyL15: ;
-    cpy_r_r31 = CPyDef_get_weather(cpy_r_r26, cpy_r_r28, cpy_r_r0);
+    cpy_r_r31 = PyFloat_FromDouble(cpy_r_r26);
+    cpy_r_r32 = PyFloat_FromDouble(cpy_r_r28);
+    cpy_r_r33 = CPyDef_display_weather(cpy_r_r31, cpy_r_r32, cpy_r_r0);
+    CPy_DECREF(cpy_r_r31);
+    CPy_DECREF(cpy_r_r32);
     CPy_DECREF(cpy_r_r0);
-    if (unlikely(cpy_r_r31 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 70, CPyStatic_globals);
-        goto CPyL55;
+    if (unlikely(cpy_r_r33 == 2)) {
+        CPy_AddTraceback("main.py", "main", 62, CPyStatic_globals);
+        goto CPyL20;
     } else
-        goto CPyL17;
+        goto CPyL19;
 CPyL16: ;
-    cpy_r_r32 = PyErr_Occurred();
-    if (unlikely(cpy_r_r32 != NULL)) {
-        CPy_AddTraceback("main.py", "main", 70, CPyStatic_globals);
-        goto CPyL56;
+    cpy_r_r34 = PyErr_Occurred();
+    if (unlikely(cpy_r_r34 != NULL)) {
+        CPy_AddTraceback("main.py", "main", 62, CPyStatic_globals);
+        goto CPyL21;
     } else
         goto CPyL15;
 CPyL17: ;
-    cpy_r_r33 = CPyStatics[31]; /* 'main' */
-    cpy_r_r34 = PyObject_GetItem(cpy_r_r31, cpy_r_r33);
-    CPy_DECREF(cpy_r_r31);
-    if (unlikely(cpy_r_r34 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 70, CPyStatic_globals);
-        goto CPyL55;
+    cpy_r_r35 = CPyStatics[31]; /* 'City not found.' */
+    cpy_r_r36 = CPyModule_builtins;
+    cpy_r_r37 = CPyStatics[32]; /* 'print' */
+    cpy_r_r38 = CPyObject_GetAttr(cpy_r_r36, cpy_r_r37);
+    if (unlikely(cpy_r_r38 == NULL)) {
+        CPy_AddTraceback("main.py", "main", 64, CPyStatic_globals);
+        goto CPyL20;
     }
-    if (likely(PyDict_Check(cpy_r_r34)))
-        cpy_r_r35 = cpy_r_r34;
-    else {
-        CPy_TypeErrorTraceback("main.py", "main", 70, CPyStatic_globals, "dict", cpy_r_r34);
-        goto CPyL55;
-    }
-    cpy_r_r36 = CPyDef_determine_emojis(cpy_r_r35);
-    if (unlikely(cpy_r_r36.f0 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 71, CPyStatic_globals);
-        goto CPyL60;
-    }
-    cpy_r_r37 = cpy_r_r36.f0;
-    cpy_r_r38 = cpy_r_r37;
-    cpy_r_r39 = cpy_r_r36.f1;
-    cpy_r_r40 = cpy_r_r39;
-    cpy_r_r41 = cpy_r_r36.f2;
-    cpy_r_r42 = cpy_r_r41;
-    cpy_r_r43 = CPyStatics[32]; /* 'Feels like: ' */
-    cpy_r_r44 = CPyStatics[18]; /* 'feels_like' */
-    cpy_r_r45 = CPyDict_GetItem(cpy_r_r35, cpy_r_r44);
-    if (unlikely(cpy_r_r45 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 72, CPyStatic_globals);
-        goto CPyL61;
-    }
-    cpy_r_r46 = PyFloat_AsDouble(cpy_r_r45);
-    if (cpy_r_r46 == -1.0 && PyErr_Occurred()) {
-        CPy_TypeError("float", cpy_r_r45); cpy_r_r46 = -113.0;
-    }
-    CPy_DECREF(cpy_r_r45);
-    cpy_r_r47 = cpy_r_r46 == -113.0;
-    if (unlikely(cpy_r_r47)) goto CPyL23;
-CPyL22: ;
-    cpy_r_r48 = PyFloat_FromDouble(cpy_r_r46);
-    cpy_r_r49 = PyObject_Str(cpy_r_r48);
-    CPy_DECREF(cpy_r_r48);
-    if (unlikely(cpy_r_r49 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 72, CPyStatic_globals);
-        goto CPyL61;
-    } else
-        goto CPyL24;
-CPyL23: ;
-    cpy_r_r50 = PyErr_Occurred();
-    if (unlikely(cpy_r_r50 != NULL)) {
-        CPy_AddTraceback("main.py", "main", 72, CPyStatic_globals);
-        goto CPyL61;
-    } else
-        goto CPyL22;
-CPyL24: ;
-    cpy_r_r51 = CPyStatics[33]; /* '° ' */
-    cpy_r_r52 = CPyStr_Build(4, cpy_r_r43, cpy_r_r49, cpy_r_r51, cpy_r_r38);
-    CPy_DECREF(cpy_r_r49);
+    PyObject *cpy_r_r39[1] = {cpy_r_r35};
+    cpy_r_r40 = (PyObject **)&cpy_r_r39;
+    cpy_r_r41 = _PyObject_Vectorcall(cpy_r_r38, cpy_r_r40, 1, 0);
     CPy_DECREF(cpy_r_r38);
-    if (unlikely(cpy_r_r52 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 72, CPyStatic_globals);
-        goto CPyL62;
-    }
-    cpy_r_r53 = CPyModule_builtins;
-    cpy_r_r54 = CPyStatics[34]; /* 'print' */
-    cpy_r_r55 = CPyObject_GetAttr(cpy_r_r53, cpy_r_r54);
-    if (unlikely(cpy_r_r55 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 72, CPyStatic_globals);
-        goto CPyL63;
-    }
-    PyObject *cpy_r_r56[1] = {cpy_r_r52};
-    cpy_r_r57 = (PyObject **)&cpy_r_r56;
-    cpy_r_r58 = _PyObject_Vectorcall(cpy_r_r55, cpy_r_r57, 1, 0);
-    CPy_DECREF(cpy_r_r55);
-    if (unlikely(cpy_r_r58 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 72, CPyStatic_globals);
-        goto CPyL63;
+    if (unlikely(cpy_r_r41 == NULL)) {
+        CPy_AddTraceback("main.py", "main", 64, CPyStatic_globals);
+        goto CPyL20;
     } else
-        goto CPyL64;
-CPyL27: ;
-    CPy_DECREF(cpy_r_r52);
-    cpy_r_r59 = CPyStatics[35]; /* 'Humidity: ' */
-    cpy_r_r60 = CPyStatics[19]; /* 'humidity' */
-    cpy_r_r61 = CPyDict_GetItem(cpy_r_r35, cpy_r_r60);
-    if (unlikely(cpy_r_r61 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 73, CPyStatic_globals);
-        goto CPyL62;
-    }
-    cpy_r_r62 = PyFloat_AsDouble(cpy_r_r61);
-    if (cpy_r_r62 == -1.0 && PyErr_Occurred()) {
-        CPy_TypeError("float", cpy_r_r61); cpy_r_r62 = -113.0;
-    }
-    CPy_DECREF(cpy_r_r61);
-    cpy_r_r63 = cpy_r_r62 == -113.0;
-    if (unlikely(cpy_r_r63)) goto CPyL30;
-CPyL29: ;
-    cpy_r_r64 = PyFloat_FromDouble(cpy_r_r62);
-    cpy_r_r65 = PyObject_Str(cpy_r_r64);
-    CPy_DECREF(cpy_r_r64);
-    if (unlikely(cpy_r_r65 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 73, CPyStatic_globals);
-        goto CPyL62;
-    } else
-        goto CPyL31;
-CPyL30: ;
-    cpy_r_r66 = PyErr_Occurred();
-    if (unlikely(cpy_r_r66 != NULL)) {
-        CPy_AddTraceback("main.py", "main", 73, CPyStatic_globals);
-        goto CPyL62;
-    } else
-        goto CPyL29;
-CPyL31: ;
-    cpy_r_r67 = CPyStatics[36]; /* '% ' */
-    cpy_r_r68 = CPyStr_Build(4, cpy_r_r59, cpy_r_r65, cpy_r_r67, cpy_r_r40);
-    CPy_DECREF(cpy_r_r65);
-    CPy_DECREF(cpy_r_r40);
-    if (unlikely(cpy_r_r68 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 73, CPyStatic_globals);
-        goto CPyL65;
-    }
-    cpy_r_r69 = CPyModule_builtins;
-    cpy_r_r70 = CPyStatics[34]; /* 'print' */
-    cpy_r_r71 = CPyObject_GetAttr(cpy_r_r69, cpy_r_r70);
-    if (unlikely(cpy_r_r71 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 73, CPyStatic_globals);
-        goto CPyL66;
-    }
-    PyObject *cpy_r_r72[1] = {cpy_r_r68};
-    cpy_r_r73 = (PyObject **)&cpy_r_r72;
-    cpy_r_r74 = _PyObject_Vectorcall(cpy_r_r71, cpy_r_r73, 1, 0);
-    CPy_DECREF(cpy_r_r71);
-    if (unlikely(cpy_r_r74 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 73, CPyStatic_globals);
-        goto CPyL66;
-    } else
-        goto CPyL67;
-CPyL34: ;
-    CPy_DECREF(cpy_r_r68);
-    cpy_r_r75 = CPyStatics[37]; /* 'Temperature: ' */
-    cpy_r_r76 = CPyStatics[20]; /* 'temp' */
-    cpy_r_r77 = CPyDict_GetItem(cpy_r_r35, cpy_r_r76);
-    if (unlikely(cpy_r_r77 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 74, CPyStatic_globals);
-        goto CPyL65;
-    }
-    cpy_r_r78 = PyFloat_AsDouble(cpy_r_r77);
-    if (cpy_r_r78 == -1.0 && PyErr_Occurred()) {
-        CPy_TypeError("float", cpy_r_r77); cpy_r_r78 = -113.0;
-    }
-    CPy_DECREF(cpy_r_r77);
-    cpy_r_r79 = cpy_r_r78 == -113.0;
-    if (unlikely(cpy_r_r79)) goto CPyL37;
-CPyL36: ;
-    cpy_r_r80 = PyFloat_FromDouble(cpy_r_r78);
-    cpy_r_r81 = PyObject_Str(cpy_r_r80);
-    CPy_DECREF(cpy_r_r80);
-    if (unlikely(cpy_r_r81 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 74, CPyStatic_globals);
-        goto CPyL65;
-    } else
-        goto CPyL38;
-CPyL37: ;
-    cpy_r_r82 = PyErr_Occurred();
-    if (unlikely(cpy_r_r82 != NULL)) {
-        CPy_AddTraceback("main.py", "main", 74, CPyStatic_globals);
-        goto CPyL65;
-    } else
-        goto CPyL36;
-CPyL38: ;
-    cpy_r_r83 = CPyStatics[33]; /* '° ' */
-    cpy_r_r84 = CPyStr_Build(4, cpy_r_r75, cpy_r_r81, cpy_r_r83, cpy_r_r42);
-    CPy_DECREF(cpy_r_r81);
-    CPy_DECREF(cpy_r_r42);
-    if (unlikely(cpy_r_r84 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 74, CPyStatic_globals);
-        goto CPyL60;
-    }
-    cpy_r_r85 = CPyModule_builtins;
-    cpy_r_r86 = CPyStatics[34]; /* 'print' */
-    cpy_r_r87 = CPyObject_GetAttr(cpy_r_r85, cpy_r_r86);
-    if (unlikely(cpy_r_r87 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 74, CPyStatic_globals);
-        goto CPyL68;
-    }
-    PyObject *cpy_r_r88[1] = {cpy_r_r84};
-    cpy_r_r89 = (PyObject **)&cpy_r_r88;
-    cpy_r_r90 = _PyObject_Vectorcall(cpy_r_r87, cpy_r_r89, 1, 0);
-    CPy_DECREF(cpy_r_r87);
-    if (unlikely(cpy_r_r90 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 74, CPyStatic_globals);
-        goto CPyL68;
-    } else
-        goto CPyL69;
-CPyL41: ;
-    CPy_DECREF(cpy_r_r84);
-    cpy_r_r91 = CPyStatics[38]; /* 'Temperature min:' */
-    cpy_r_r92 = CPyStatics[39]; /* 'temp_min' */
-    cpy_r_r93 = CPyDict_GetItem(cpy_r_r35, cpy_r_r92);
-    if (unlikely(cpy_r_r93 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 75, CPyStatic_globals);
-        goto CPyL60;
-    }
-    cpy_r_r94 = PyFloat_AsDouble(cpy_r_r93);
-    if (cpy_r_r94 == -1.0 && PyErr_Occurred()) {
-        CPy_TypeError("float", cpy_r_r93); cpy_r_r94 = -113.0;
-    }
-    CPy_DECREF(cpy_r_r93);
-    cpy_r_r95 = cpy_r_r94 == -113.0;
-    if (unlikely(cpy_r_r95)) goto CPyL44;
-CPyL43: ;
-    cpy_r_r96 = CPyModule_builtins;
-    cpy_r_r97 = CPyStatics[34]; /* 'print' */
-    cpy_r_r98 = CPyObject_GetAttr(cpy_r_r96, cpy_r_r97);
-    if (unlikely(cpy_r_r98 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 75, CPyStatic_globals);
-        goto CPyL60;
-    } else
-        goto CPyL45;
-CPyL44: ;
-    cpy_r_r99 = PyErr_Occurred();
-    if (unlikely(cpy_r_r99 != NULL)) {
-        CPy_AddTraceback("main.py", "main", 75, CPyStatic_globals);
-        goto CPyL60;
-    } else
-        goto CPyL43;
-CPyL45: ;
-    cpy_r_r100 = PyFloat_FromDouble(cpy_r_r94);
-    PyObject *cpy_r_r101[2] = {cpy_r_r91, cpy_r_r100};
-    cpy_r_r102 = (PyObject **)&cpy_r_r101;
-    cpy_r_r103 = _PyObject_Vectorcall(cpy_r_r98, cpy_r_r102, 2, 0);
-    CPy_DECREF(cpy_r_r98);
-    if (unlikely(cpy_r_r103 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 75, CPyStatic_globals);
-        goto CPyL70;
-    } else
-        goto CPyL71;
-CPyL46: ;
-    CPy_DECREF(cpy_r_r100);
-    cpy_r_r104 = CPyStatics[40]; /* 'Temperature max:' */
-    cpy_r_r105 = CPyStatics[41]; /* 'temp_max' */
-    cpy_r_r106 = CPyDict_GetItem(cpy_r_r35, cpy_r_r105);
-    CPy_DECREF(cpy_r_r35);
-    if (unlikely(cpy_r_r106 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 76, CPyStatic_globals);
-        goto CPyL55;
-    }
-    cpy_r_r107 = PyFloat_AsDouble(cpy_r_r106);
-    if (cpy_r_r107 == -1.0 && PyErr_Occurred()) {
-        CPy_TypeError("float", cpy_r_r106); cpy_r_r107 = -113.0;
-    }
-    CPy_DECREF(cpy_r_r106);
-    cpy_r_r108 = cpy_r_r107 == -113.0;
-    if (unlikely(cpy_r_r108)) goto CPyL49;
-CPyL48: ;
-    cpy_r_r109 = CPyModule_builtins;
-    cpy_r_r110 = CPyStatics[34]; /* 'print' */
-    cpy_r_r111 = CPyObject_GetAttr(cpy_r_r109, cpy_r_r110);
-    if (unlikely(cpy_r_r111 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 76, CPyStatic_globals);
-        goto CPyL55;
-    } else
-        goto CPyL50;
-CPyL49: ;
-    cpy_r_r112 = PyErr_Occurred();
-    if (unlikely(cpy_r_r112 != NULL)) {
-        CPy_AddTraceback("main.py", "main", 76, CPyStatic_globals);
-        goto CPyL55;
-    } else
-        goto CPyL48;
-CPyL50: ;
-    cpy_r_r113 = PyFloat_FromDouble(cpy_r_r107);
-    PyObject *cpy_r_r114[2] = {cpy_r_r104, cpy_r_r113};
-    cpy_r_r115 = (PyObject **)&cpy_r_r114;
-    cpy_r_r116 = _PyObject_Vectorcall(cpy_r_r111, cpy_r_r115, 2, 0);
-    CPy_DECREF(cpy_r_r111);
-    if (unlikely(cpy_r_r116 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 76, CPyStatic_globals);
-        goto CPyL72;
-    } else
-        goto CPyL73;
-CPyL51: ;
-    CPy_DECREF(cpy_r_r113);
-    goto CPyL54;
-CPyL52: ;
-    cpy_r_r117 = CPyStatics[42]; /* 'City not found.' */
-    cpy_r_r118 = CPyModule_builtins;
-    cpy_r_r119 = CPyStatics[34]; /* 'print' */
-    cpy_r_r120 = CPyObject_GetAttr(cpy_r_r118, cpy_r_r119);
-    if (unlikely(cpy_r_r120 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 78, CPyStatic_globals);
-        goto CPyL55;
-    }
-    PyObject *cpy_r_r121[1] = {cpy_r_r117};
-    cpy_r_r122 = (PyObject **)&cpy_r_r121;
-    cpy_r_r123 = _PyObject_Vectorcall(cpy_r_r120, cpy_r_r122, 1, 0);
-    CPy_DECREF(cpy_r_r120);
-    if (unlikely(cpy_r_r123 == NULL)) {
-        CPy_AddTraceback("main.py", "main", 78, CPyStatic_globals);
-        goto CPyL55;
-    } else
-        goto CPyL74;
-CPyL54: ;
+        goto CPyL25;
+CPyL19: ;
     return 1;
-CPyL55: ;
-    cpy_r_r124 = 2;
-    return cpy_r_r124;
-CPyL56: ;
+CPyL20: ;
+    cpy_r_r42 = 2;
+    return cpy_r_r42;
+CPyL21: ;
     CPy_DecRef(cpy_r_r0);
-    goto CPyL55;
-CPyL57: ;
+    goto CPyL20;
+CPyL22: ;
     CPy_DECREF(cpy_r_r0);
     CPy_DECREF(cpy_r_r11);
     CPy_DECREF(cpy_r_r13);
-    goto CPyL52;
-CPyL58: ;
+    goto CPyL17;
+CPyL23: ;
     CPy_DecRef(cpy_r_r0);
     CPy_DecRef(cpy_r_r11);
     CPy_DecRef(cpy_r_r13);
-    goto CPyL55;
-CPyL59: ;
+    goto CPyL20;
+CPyL24: ;
     CPy_DecRef(cpy_r_r0);
     CPy_DecRef(cpy_r_r13);
-    goto CPyL55;
-CPyL60: ;
-    CPy_DecRef(cpy_r_r35);
-    goto CPyL55;
-CPyL61: ;
-    CPy_DecRef(cpy_r_r35);
-    CPy_DecRef(cpy_r_r38);
-    CPy_DecRef(cpy_r_r40);
-    CPy_DecRef(cpy_r_r42);
-    goto CPyL55;
-CPyL62: ;
-    CPy_DecRef(cpy_r_r35);
-    CPy_DecRef(cpy_r_r40);
-    CPy_DecRef(cpy_r_r42);
-    goto CPyL55;
-CPyL63: ;
-    CPy_DecRef(cpy_r_r35);
-    CPy_DecRef(cpy_r_r40);
-    CPy_DecRef(cpy_r_r42);
-    CPy_DecRef(cpy_r_r52);
-    goto CPyL55;
-CPyL64: ;
-    CPy_DECREF(cpy_r_r58);
-    goto CPyL27;
-CPyL65: ;
-    CPy_DecRef(cpy_r_r35);
-    CPy_DecRef(cpy_r_r42);
-    goto CPyL55;
-CPyL66: ;
-    CPy_DecRef(cpy_r_r35);
-    CPy_DecRef(cpy_r_r42);
-    CPy_DecRef(cpy_r_r68);
-    goto CPyL55;
-CPyL67: ;
-    CPy_DECREF(cpy_r_r74);
-    goto CPyL34;
-CPyL68: ;
-    CPy_DecRef(cpy_r_r35);
-    CPy_DecRef(cpy_r_r84);
-    goto CPyL55;
-CPyL69: ;
-    CPy_DECREF(cpy_r_r90);
-    goto CPyL41;
-CPyL70: ;
-    CPy_DecRef(cpy_r_r35);
-    CPy_DecRef(cpy_r_r100);
-    goto CPyL55;
-CPyL71: ;
-    CPy_DECREF(cpy_r_r103);
-    goto CPyL46;
-CPyL72: ;
-    CPy_DecRef(cpy_r_r113);
-    goto CPyL55;
-CPyL73: ;
-    CPy_DECREF(cpy_r_r116);
-    goto CPyL51;
-CPyL74: ;
-    CPy_DECREF(cpy_r_r123);
-    goto CPyL54;
+    goto CPyL20;
+CPyL25: ;
+    CPy_DECREF(cpy_r_r41);
+    goto CPyL19;
 }
 
 PyObject *CPyPy_main(PyObject *self, PyObject *const *args, size_t nargs, PyObject *kwnames) {
@@ -1272,7 +856,513 @@ PyObject *CPyPy_main(PyObject *self, PyObject *const *args, size_t nargs, PyObje
     CPy_INCREF(retbox);
     return retbox;
 fail: ;
-    CPy_AddTraceback("main.py", "main", 63, CPyStatic_globals);
+    CPy_AddTraceback("main.py", "main", 55, CPyStatic_globals);
+    return NULL;
+}
+
+char CPyDef_display_weather(PyObject *cpy_r_lat, PyObject *cpy_r_lon, PyObject *cpy_r_api_key) {
+    double cpy_r_r0;
+    char cpy_r_r1;
+    double cpy_r_r2;
+    char cpy_r_r3;
+    PyObject *cpy_r_r4;
+    PyObject *cpy_r_r5;
+    PyObject *cpy_r_r6;
+    PyObject *cpy_r_r7;
+    PyObject *cpy_r_r8;
+    PyObject *cpy_r_r9;
+    PyObject *cpy_r_r10;
+    tuple_T3OOO cpy_r_r11;
+    PyObject *cpy_r_r12;
+    PyObject *cpy_r_r13;
+    PyObject *cpy_r_r14;
+    PyObject *cpy_r_r15;
+    PyObject *cpy_r_r16;
+    PyObject *cpy_r_r17;
+    PyObject *cpy_r_r18;
+    PyObject *cpy_r_r19;
+    PyObject *cpy_r_r20;
+    double cpy_r_r21;
+    char cpy_r_r22;
+    PyObject *cpy_r_r23;
+    PyObject *cpy_r_r24;
+    PyObject *cpy_r_r25;
+    PyObject *cpy_r_r26;
+    PyObject *cpy_r_r27;
+    PyObject *cpy_r_r28;
+    PyObject *cpy_r_r29;
+    PyObject *cpy_r_r30;
+    PyObject **cpy_r_r32;
+    PyObject *cpy_r_r33;
+    PyObject *cpy_r_r34;
+    PyObject *cpy_r_r35;
+    PyObject *cpy_r_r36;
+    double cpy_r_r37;
+    char cpy_r_r38;
+    PyObject *cpy_r_r39;
+    PyObject *cpy_r_r40;
+    PyObject *cpy_r_r41;
+    PyObject *cpy_r_r42;
+    PyObject *cpy_r_r43;
+    PyObject *cpy_r_r44;
+    PyObject *cpy_r_r45;
+    PyObject *cpy_r_r46;
+    PyObject **cpy_r_r48;
+    PyObject *cpy_r_r49;
+    PyObject *cpy_r_r50;
+    PyObject *cpy_r_r51;
+    PyObject *cpy_r_r52;
+    double cpy_r_r53;
+    char cpy_r_r54;
+    PyObject *cpy_r_r55;
+    PyObject *cpy_r_r56;
+    PyObject *cpy_r_r57;
+    PyObject *cpy_r_r58;
+    PyObject *cpy_r_r59;
+    PyObject *cpy_r_r60;
+    PyObject *cpy_r_r61;
+    PyObject *cpy_r_r62;
+    PyObject **cpy_r_r64;
+    PyObject *cpy_r_r65;
+    PyObject *cpy_r_r66;
+    PyObject *cpy_r_r67;
+    PyObject *cpy_r_r68;
+    double cpy_r_r69;
+    char cpy_r_r70;
+    PyObject *cpy_r_r71;
+    PyObject *cpy_r_r72;
+    PyObject *cpy_r_r73;
+    PyObject *cpy_r_r74;
+    PyObject *cpy_r_r75;
+    PyObject **cpy_r_r77;
+    PyObject *cpy_r_r78;
+    PyObject *cpy_r_r79;
+    PyObject *cpy_r_r80;
+    PyObject *cpy_r_r81;
+    double cpy_r_r82;
+    char cpy_r_r83;
+    PyObject *cpy_r_r84;
+    PyObject *cpy_r_r85;
+    PyObject *cpy_r_r86;
+    PyObject *cpy_r_r87;
+    PyObject *cpy_r_r88;
+    PyObject **cpy_r_r90;
+    PyObject *cpy_r_r91;
+    char cpy_r_r92;
+    cpy_r_r0 = PyFloat_AsDouble(cpy_r_lat);
+    if (cpy_r_r0 == -1.0 && PyErr_Occurred()) {
+        CPy_TypeError("float", cpy_r_lat); cpy_r_r0 = -113.0;
+    }
+    cpy_r_r1 = cpy_r_r0 == -113.0;
+    if (unlikely(cpy_r_r1)) goto CPyL2;
+CPyL1: ;
+    cpy_r_r2 = PyFloat_AsDouble(cpy_r_lon);
+    if (cpy_r_r2 == -1.0 && PyErr_Occurred()) {
+        CPy_TypeError("float", cpy_r_lon); cpy_r_r2 = -113.0;
+    }
+    cpy_r_r3 = cpy_r_r2 == -113.0;
+    if (unlikely(cpy_r_r3)) {
+        goto CPyL4;
+    } else
+        goto CPyL3;
+CPyL2: ;
+    cpy_r_r4 = PyErr_Occurred();
+    if (unlikely(cpy_r_r4 != NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 68, CPyStatic_globals);
+        goto CPyL41;
+    } else
+        goto CPyL1;
+CPyL3: ;
+    CPy_INCREF(cpy_r_api_key);
+    if (likely(PyUnicode_Check(cpy_r_api_key)))
+        cpy_r_r5 = cpy_r_api_key;
+    else {
+        CPy_TypeError("str", cpy_r_api_key); 
+        cpy_r_r5 = NULL;
+    }
+    if (unlikely(cpy_r_r5 == NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 68, CPyStatic_globals);
+        goto CPyL41;
+    } else
+        goto CPyL5;
+CPyL4: ;
+    cpy_r_r6 = PyErr_Occurred();
+    if (unlikely(cpy_r_r6 != NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 68, CPyStatic_globals);
+        goto CPyL41;
+    } else
+        goto CPyL3;
+CPyL5: ;
+    cpy_r_r7 = CPyDef_get_weather(cpy_r_r0, cpy_r_r2, cpy_r_r5);
+    CPy_DECREF(cpy_r_r5);
+    if (unlikely(cpy_r_r7 == NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 68, CPyStatic_globals);
+        goto CPyL41;
+    }
+    cpy_r_r8 = CPyStatics[33]; /* 'main' */
+    cpy_r_r9 = PyObject_GetItem(cpy_r_r7, cpy_r_r8);
+    CPy_DECREF(cpy_r_r7);
+    if (unlikely(cpy_r_r9 == NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 68, CPyStatic_globals);
+        goto CPyL41;
+    }
+    if (likely(PyDict_Check(cpy_r_r9)))
+        cpy_r_r10 = cpy_r_r9;
+    else {
+        CPy_TypeErrorTraceback("main.py", "display_weather", 68, CPyStatic_globals, "dict", cpy_r_r9);
+        goto CPyL41;
+    }
+    cpy_r_r11 = CPyDef_determine_emojis(cpy_r_r10);
+    if (unlikely(cpy_r_r11.f0 == NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 69, CPyStatic_globals);
+        goto CPyL42;
+    }
+    cpy_r_r12 = cpy_r_r11.f0;
+    cpy_r_r13 = cpy_r_r12;
+    cpy_r_r14 = cpy_r_r11.f1;
+    cpy_r_r15 = cpy_r_r14;
+    cpy_r_r16 = cpy_r_r11.f2;
+    cpy_r_r17 = cpy_r_r16;
+    cpy_r_r18 = CPyStatics[34]; /* 'Feels like: ' */
+    cpy_r_r19 = CPyStatics[18]; /* 'feels_like' */
+    cpy_r_r20 = CPyDict_GetItem(cpy_r_r10, cpy_r_r19);
+    if (unlikely(cpy_r_r20 == NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 70, CPyStatic_globals);
+        goto CPyL43;
+    }
+    cpy_r_r21 = PyFloat_AsDouble(cpy_r_r20);
+    if (cpy_r_r21 == -1.0 && PyErr_Occurred()) {
+        CPy_TypeError("float", cpy_r_r20); cpy_r_r21 = -113.0;
+    }
+    CPy_DECREF(cpy_r_r20);
+    cpy_r_r22 = cpy_r_r21 == -113.0;
+    if (unlikely(cpy_r_r22)) goto CPyL12;
+CPyL11: ;
+    cpy_r_r23 = PyFloat_FromDouble(cpy_r_r21);
+    cpy_r_r24 = PyObject_Str(cpy_r_r23);
+    CPy_DECREF(cpy_r_r23);
+    if (unlikely(cpy_r_r24 == NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 70, CPyStatic_globals);
+        goto CPyL43;
+    } else
+        goto CPyL13;
+CPyL12: ;
+    cpy_r_r25 = PyErr_Occurred();
+    if (unlikely(cpy_r_r25 != NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 70, CPyStatic_globals);
+        goto CPyL43;
+    } else
+        goto CPyL11;
+CPyL13: ;
+    cpy_r_r26 = CPyStatics[35]; /* '° ' */
+    cpy_r_r27 = CPyStr_Build(4, cpy_r_r18, cpy_r_r24, cpy_r_r26, cpy_r_r13);
+    CPy_DECREF(cpy_r_r24);
+    CPy_DECREF(cpy_r_r13);
+    if (unlikely(cpy_r_r27 == NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 70, CPyStatic_globals);
+        goto CPyL44;
+    }
+    cpy_r_r28 = CPyModule_builtins;
+    cpy_r_r29 = CPyStatics[32]; /* 'print' */
+    cpy_r_r30 = CPyObject_GetAttr(cpy_r_r28, cpy_r_r29);
+    if (unlikely(cpy_r_r30 == NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 70, CPyStatic_globals);
+        goto CPyL45;
+    }
+    PyObject *cpy_r_r31[1] = {cpy_r_r27};
+    cpy_r_r32 = (PyObject **)&cpy_r_r31;
+    cpy_r_r33 = _PyObject_Vectorcall(cpy_r_r30, cpy_r_r32, 1, 0);
+    CPy_DECREF(cpy_r_r30);
+    if (unlikely(cpy_r_r33 == NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 70, CPyStatic_globals);
+        goto CPyL45;
+    } else
+        goto CPyL46;
+CPyL16: ;
+    CPy_DECREF(cpy_r_r27);
+    cpy_r_r34 = CPyStatics[36]; /* 'Humidity: ' */
+    cpy_r_r35 = CPyStatics[19]; /* 'humidity' */
+    cpy_r_r36 = CPyDict_GetItem(cpy_r_r10, cpy_r_r35);
+    if (unlikely(cpy_r_r36 == NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 71, CPyStatic_globals);
+        goto CPyL44;
+    }
+    cpy_r_r37 = PyFloat_AsDouble(cpy_r_r36);
+    if (cpy_r_r37 == -1.0 && PyErr_Occurred()) {
+        CPy_TypeError("float", cpy_r_r36); cpy_r_r37 = -113.0;
+    }
+    CPy_DECREF(cpy_r_r36);
+    cpy_r_r38 = cpy_r_r37 == -113.0;
+    if (unlikely(cpy_r_r38)) goto CPyL19;
+CPyL18: ;
+    cpy_r_r39 = PyFloat_FromDouble(cpy_r_r37);
+    cpy_r_r40 = PyObject_Str(cpy_r_r39);
+    CPy_DECREF(cpy_r_r39);
+    if (unlikely(cpy_r_r40 == NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 71, CPyStatic_globals);
+        goto CPyL44;
+    } else
+        goto CPyL20;
+CPyL19: ;
+    cpy_r_r41 = PyErr_Occurred();
+    if (unlikely(cpy_r_r41 != NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 71, CPyStatic_globals);
+        goto CPyL44;
+    } else
+        goto CPyL18;
+CPyL20: ;
+    cpy_r_r42 = CPyStatics[37]; /* '% ' */
+    cpy_r_r43 = CPyStr_Build(4, cpy_r_r34, cpy_r_r40, cpy_r_r42, cpy_r_r15);
+    CPy_DECREF(cpy_r_r40);
+    CPy_DECREF(cpy_r_r15);
+    if (unlikely(cpy_r_r43 == NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 71, CPyStatic_globals);
+        goto CPyL47;
+    }
+    cpy_r_r44 = CPyModule_builtins;
+    cpy_r_r45 = CPyStatics[32]; /* 'print' */
+    cpy_r_r46 = CPyObject_GetAttr(cpy_r_r44, cpy_r_r45);
+    if (unlikely(cpy_r_r46 == NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 71, CPyStatic_globals);
+        goto CPyL48;
+    }
+    PyObject *cpy_r_r47[1] = {cpy_r_r43};
+    cpy_r_r48 = (PyObject **)&cpy_r_r47;
+    cpy_r_r49 = _PyObject_Vectorcall(cpy_r_r46, cpy_r_r48, 1, 0);
+    CPy_DECREF(cpy_r_r46);
+    if (unlikely(cpy_r_r49 == NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 71, CPyStatic_globals);
+        goto CPyL48;
+    } else
+        goto CPyL49;
+CPyL23: ;
+    CPy_DECREF(cpy_r_r43);
+    cpy_r_r50 = CPyStatics[38]; /* 'Temperature: ' */
+    cpy_r_r51 = CPyStatics[20]; /* 'temp' */
+    cpy_r_r52 = CPyDict_GetItem(cpy_r_r10, cpy_r_r51);
+    if (unlikely(cpy_r_r52 == NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 72, CPyStatic_globals);
+        goto CPyL47;
+    }
+    cpy_r_r53 = PyFloat_AsDouble(cpy_r_r52);
+    if (cpy_r_r53 == -1.0 && PyErr_Occurred()) {
+        CPy_TypeError("float", cpy_r_r52); cpy_r_r53 = -113.0;
+    }
+    CPy_DECREF(cpy_r_r52);
+    cpy_r_r54 = cpy_r_r53 == -113.0;
+    if (unlikely(cpy_r_r54)) goto CPyL26;
+CPyL25: ;
+    cpy_r_r55 = PyFloat_FromDouble(cpy_r_r53);
+    cpy_r_r56 = PyObject_Str(cpy_r_r55);
+    CPy_DECREF(cpy_r_r55);
+    if (unlikely(cpy_r_r56 == NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 72, CPyStatic_globals);
+        goto CPyL47;
+    } else
+        goto CPyL27;
+CPyL26: ;
+    cpy_r_r57 = PyErr_Occurred();
+    if (unlikely(cpy_r_r57 != NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 72, CPyStatic_globals);
+        goto CPyL47;
+    } else
+        goto CPyL25;
+CPyL27: ;
+    cpy_r_r58 = CPyStatics[35]; /* '° ' */
+    cpy_r_r59 = CPyStr_Build(4, cpy_r_r50, cpy_r_r56, cpy_r_r58, cpy_r_r17);
+    CPy_DECREF(cpy_r_r56);
+    CPy_DECREF(cpy_r_r17);
+    if (unlikely(cpy_r_r59 == NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 72, CPyStatic_globals);
+        goto CPyL42;
+    }
+    cpy_r_r60 = CPyModule_builtins;
+    cpy_r_r61 = CPyStatics[32]; /* 'print' */
+    cpy_r_r62 = CPyObject_GetAttr(cpy_r_r60, cpy_r_r61);
+    if (unlikely(cpy_r_r62 == NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 72, CPyStatic_globals);
+        goto CPyL50;
+    }
+    PyObject *cpy_r_r63[1] = {cpy_r_r59};
+    cpy_r_r64 = (PyObject **)&cpy_r_r63;
+    cpy_r_r65 = _PyObject_Vectorcall(cpy_r_r62, cpy_r_r64, 1, 0);
+    CPy_DECREF(cpy_r_r62);
+    if (unlikely(cpy_r_r65 == NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 72, CPyStatic_globals);
+        goto CPyL50;
+    } else
+        goto CPyL51;
+CPyL30: ;
+    CPy_DECREF(cpy_r_r59);
+    cpy_r_r66 = CPyStatics[39]; /* 'Temperature min:' */
+    cpy_r_r67 = CPyStatics[40]; /* 'temp_min' */
+    cpy_r_r68 = CPyDict_GetItem(cpy_r_r10, cpy_r_r67);
+    if (unlikely(cpy_r_r68 == NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 73, CPyStatic_globals);
+        goto CPyL42;
+    }
+    cpy_r_r69 = PyFloat_AsDouble(cpy_r_r68);
+    if (cpy_r_r69 == -1.0 && PyErr_Occurred()) {
+        CPy_TypeError("float", cpy_r_r68); cpy_r_r69 = -113.0;
+    }
+    CPy_DECREF(cpy_r_r68);
+    cpy_r_r70 = cpy_r_r69 == -113.0;
+    if (unlikely(cpy_r_r70)) goto CPyL33;
+CPyL32: ;
+    cpy_r_r71 = CPyModule_builtins;
+    cpy_r_r72 = CPyStatics[32]; /* 'print' */
+    cpy_r_r73 = CPyObject_GetAttr(cpy_r_r71, cpy_r_r72);
+    if (unlikely(cpy_r_r73 == NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 73, CPyStatic_globals);
+        goto CPyL42;
+    } else
+        goto CPyL34;
+CPyL33: ;
+    cpy_r_r74 = PyErr_Occurred();
+    if (unlikely(cpy_r_r74 != NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 73, CPyStatic_globals);
+        goto CPyL42;
+    } else
+        goto CPyL32;
+CPyL34: ;
+    cpy_r_r75 = PyFloat_FromDouble(cpy_r_r69);
+    PyObject *cpy_r_r76[2] = {cpy_r_r66, cpy_r_r75};
+    cpy_r_r77 = (PyObject **)&cpy_r_r76;
+    cpy_r_r78 = _PyObject_Vectorcall(cpy_r_r73, cpy_r_r77, 2, 0);
+    CPy_DECREF(cpy_r_r73);
+    if (unlikely(cpy_r_r78 == NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 73, CPyStatic_globals);
+        goto CPyL52;
+    } else
+        goto CPyL53;
+CPyL35: ;
+    CPy_DECREF(cpy_r_r75);
+    cpy_r_r79 = CPyStatics[41]; /* 'Temperature max:' */
+    cpy_r_r80 = CPyStatics[42]; /* 'temp_max' */
+    cpy_r_r81 = CPyDict_GetItem(cpy_r_r10, cpy_r_r80);
+    CPy_DECREF(cpy_r_r10);
+    if (unlikely(cpy_r_r81 == NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 74, CPyStatic_globals);
+        goto CPyL41;
+    }
+    cpy_r_r82 = PyFloat_AsDouble(cpy_r_r81);
+    if (cpy_r_r82 == -1.0 && PyErr_Occurred()) {
+        CPy_TypeError("float", cpy_r_r81); cpy_r_r82 = -113.0;
+    }
+    CPy_DECREF(cpy_r_r81);
+    cpy_r_r83 = cpy_r_r82 == -113.0;
+    if (unlikely(cpy_r_r83)) goto CPyL38;
+CPyL37: ;
+    cpy_r_r84 = CPyModule_builtins;
+    cpy_r_r85 = CPyStatics[32]; /* 'print' */
+    cpy_r_r86 = CPyObject_GetAttr(cpy_r_r84, cpy_r_r85);
+    if (unlikely(cpy_r_r86 == NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 74, CPyStatic_globals);
+        goto CPyL41;
+    } else
+        goto CPyL39;
+CPyL38: ;
+    cpy_r_r87 = PyErr_Occurred();
+    if (unlikely(cpy_r_r87 != NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 74, CPyStatic_globals);
+        goto CPyL41;
+    } else
+        goto CPyL37;
+CPyL39: ;
+    cpy_r_r88 = PyFloat_FromDouble(cpy_r_r82);
+    PyObject *cpy_r_r89[2] = {cpy_r_r79, cpy_r_r88};
+    cpy_r_r90 = (PyObject **)&cpy_r_r89;
+    cpy_r_r91 = _PyObject_Vectorcall(cpy_r_r86, cpy_r_r90, 2, 0);
+    CPy_DECREF(cpy_r_r86);
+    if (unlikely(cpy_r_r91 == NULL)) {
+        CPy_AddTraceback("main.py", "display_weather", 74, CPyStatic_globals);
+        goto CPyL54;
+    } else
+        goto CPyL55;
+CPyL40: ;
+    CPy_DECREF(cpy_r_r88);
+    return 1;
+CPyL41: ;
+    cpy_r_r92 = 2;
+    return cpy_r_r92;
+CPyL42: ;
+    CPy_DecRef(cpy_r_r10);
+    goto CPyL41;
+CPyL43: ;
+    CPy_DecRef(cpy_r_r10);
+    CPy_DecRef(cpy_r_r13);
+    CPy_DecRef(cpy_r_r15);
+    CPy_DecRef(cpy_r_r17);
+    goto CPyL41;
+CPyL44: ;
+    CPy_DecRef(cpy_r_r10);
+    CPy_DecRef(cpy_r_r15);
+    CPy_DecRef(cpy_r_r17);
+    goto CPyL41;
+CPyL45: ;
+    CPy_DecRef(cpy_r_r10);
+    CPy_DecRef(cpy_r_r15);
+    CPy_DecRef(cpy_r_r17);
+    CPy_DecRef(cpy_r_r27);
+    goto CPyL41;
+CPyL46: ;
+    CPy_DECREF(cpy_r_r33);
+    goto CPyL16;
+CPyL47: ;
+    CPy_DecRef(cpy_r_r10);
+    CPy_DecRef(cpy_r_r17);
+    goto CPyL41;
+CPyL48: ;
+    CPy_DecRef(cpy_r_r10);
+    CPy_DecRef(cpy_r_r17);
+    CPy_DecRef(cpy_r_r43);
+    goto CPyL41;
+CPyL49: ;
+    CPy_DECREF(cpy_r_r49);
+    goto CPyL23;
+CPyL50: ;
+    CPy_DecRef(cpy_r_r10);
+    CPy_DecRef(cpy_r_r59);
+    goto CPyL41;
+CPyL51: ;
+    CPy_DECREF(cpy_r_r65);
+    goto CPyL30;
+CPyL52: ;
+    CPy_DecRef(cpy_r_r10);
+    CPy_DecRef(cpy_r_r75);
+    goto CPyL41;
+CPyL53: ;
+    CPy_DECREF(cpy_r_r78);
+    goto CPyL35;
+CPyL54: ;
+    CPy_DecRef(cpy_r_r88);
+    goto CPyL41;
+CPyL55: ;
+    CPy_DECREF(cpy_r_r91);
+    goto CPyL40;
+}
+
+PyObject *CPyPy_display_weather(PyObject *self, PyObject *const *args, size_t nargs, PyObject *kwnames) {
+    static const char * const kwlist[] = {"lat", "lon", "api_key", 0};
+    static CPyArg_Parser parser = {"OOO:display_weather", kwlist, 0};
+    PyObject *obj_lat;
+    PyObject *obj_lon;
+    PyObject *obj_api_key;
+    if (!CPyArg_ParseStackAndKeywordsSimple(args, nargs, kwnames, &parser, &obj_lat, &obj_lon, &obj_api_key)) {
+        return NULL;
+    }
+    PyObject *arg_lat = obj_lat;
+    PyObject *arg_lon = obj_lon;
+    PyObject *arg_api_key = obj_api_key;
+    char retval = CPyDef_display_weather(arg_lat, arg_lon, arg_api_key);
+    if (retval == 2) {
+        return NULL;
+    }
+    PyObject *retbox = Py_None;
+    CPy_INCREF(retbox);
+    return retbox;
+fail: ;
+    CPy_AddTraceback("main.py", "display_weather", 67, CPyStatic_globals);
     return NULL;
 }
 
@@ -1334,7 +1424,7 @@ CPyL3: ;
     if (!cpy_r_r18) goto CPyL7;
     cpy_r_r19 = CPyDef_main();
     if (unlikely(cpy_r_r19 == 2)) {
-        CPy_AddTraceback("main.py", "<module>", 81, CPyStatic_globals);
+        CPy_AddTraceback("main.py", "<module>", 77, CPyStatic_globals);
         goto CPyL7;
     }
     return 1;
@@ -1366,10 +1456,10 @@ const char * const CPyLit_Str[] = {
     "\006\005appid\003get\006params\004json\003lat\003lon",
     "\003.http://api.openweathermap.org/data/2.5/weather\005units\006metric",
     "\n\nfeels_like\bhumidity\004temp\006\342\230\200\357\270\217\006\342\230\201\357\270\217\006\342\235\204\357\270\217\004\360\237\222\246\004\360\237\222\247\004\360\237\224\245\a\360\237\214\241\357\270\217",
-    "\004 6686d8ea951a043615db0329e612361a\021Enter city name: \005input\004main",
-    "\a\fFeels like: \003\302\260 \005print\nHumidity: \002% \rTemperature: \020Temperature min:",
-    "\006\btemp_min\020Temperature max:\btemp_max\017City not found.\bbuiltins\003Any",
-    "\004\006typing\brequests\amain.py\b<module>",
+    "\003 6686d8ea951a043615db0329e612361a\021Enter city name: \005input",
+    "\a\017City not found.\005print\004main\fFeels like: \003\302\260 \nHumidity: \002% ",
+    "\005\rTemperature: \020Temperature min:\btemp_min\020Temperature max:\btemp_max",
+    "\006\bbuiltins\003Any\006typing\brequests\amain.py\b<module>",
     "",
 };
 const char * const CPyLit_Bytes[] = {
@@ -1397,4 +1487,6 @@ tuple_T3OOO CPyDef_determine_emojis(PyObject *cpy_r_weather_data);
 PyObject *CPyPy_determine_emojis(PyObject *self, PyObject *const *args, size_t nargs, PyObject *kwnames);
 char CPyDef_main(void);
 PyObject *CPyPy_main(PyObject *self, PyObject *const *args, size_t nargs, PyObject *kwnames);
+char CPyDef_display_weather(PyObject *cpy_r_lat, PyObject *cpy_r_lon, PyObject *cpy_r_api_key);
+PyObject *CPyPy_display_weather(PyObject *self, PyObject *const *args, size_t nargs, PyObject *kwnames);
 char CPyDef___top_level__(void);

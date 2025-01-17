@@ -74,7 +74,9 @@ L5:
     if is_error(r23) goto L19 (error at get_coordinates:9) else goto L6
 L6:
     dec_ref r19
+    inc_ref r23
     r24 = PyObject_IsTrue(r23)
+    dec_ref r23
     r25 = r24 >= 0 :: signed
     if not r25 goto L20 (error at get_coordinates:9) else goto L7 :: bool
 L7:
@@ -83,32 +85,32 @@ L7:
 L8:
     r27 = object 0
     r28 = PyObject_GetItem(r23, r27)
-    if is_error(r28) goto L20 (error at get_coordinates:11) else goto L9
+    if is_error(r28) goto L20 (error at get_coordinates:10) else goto L9
 L9:
     r29 = 'lat'
     r30 = PyObject_GetItem(r28, r29)
     dec_ref r28
-    if is_error(r30) goto L20 (error at get_coordinates:11) else goto L10
+    if is_error(r30) goto L20 (error at get_coordinates:10) else goto L10
 L10:
     r31 = object 0
     r32 = PyObject_GetItem(r23, r31)
     dec_ref r23
-    if is_error(r32) goto L22 (error at get_coordinates:11) else goto L11
+    if is_error(r32) goto L22 (error at get_coordinates:10) else goto L11
 L11:
     r33 = 'lon'
     r34 = PyObject_GetItem(r32, r33)
     dec_ref r32
-    if is_error(r34) goto L22 (error at get_coordinates:11) else goto L12
+    if is_error(r34) goto L22 (error at get_coordinates:10) else goto L12
 L12:
     inc_ref r30
     inc_ref r34
     r35 = (r30, r34)
     dec_ref r35
     r36 = cast(union[float, None], r30)
-    if is_error(r36) goto L23 (error at get_coordinates:11) else goto L13
+    if is_error(r36) goto L23 (error at get_coordinates:10) else goto L13
 L13:
     r37 = cast(union[float, None], r34)
-    if is_error(r37) goto L24 (error at get_coordinates:11) else goto L14
+    if is_error(r37) goto L24 (error at get_coordinates:10) else goto L14
 L14:
     r38 = (r36, r37)
     return r38
@@ -177,19 +179,19 @@ L0:
     r8 = CPyDict_Build(4, r1, r6, r2, r7, r3, api_key, r4, r5)
     dec_ref r6
     dec_ref r7
-    if is_error(r8) goto L6 (error at get_weather:18) else goto L1
+    if is_error(r8) goto L6 (error at get_weather:17) else goto L1
 L1:
     r9 = requests :: module
     r10 = 'get'
     r11 = CPyObject_GetAttr(r9, r10)
-    if is_error(r11) goto L7 (error at get_weather:24) else goto L2
+    if is_error(r11) goto L7 (error at get_weather:23) else goto L2
 L2:
     r12 = [r0, r8]
     r13 = load_address r12
     r14 = ('params',)
     r15 = _PyObject_Vectorcall(r11, r13, 1, r14)
     dec_ref r11
-    if is_error(r15) goto L7 (error at get_weather:24) else goto L3
+    if is_error(r15) goto L7 (error at get_weather:23) else goto L3
 L3:
     dec_ref r0
     dec_ref r8
@@ -197,7 +199,7 @@ L3:
     r17 = [r15]
     r18 = load_address r17
     r19 = PyObject_VectorcallMethod(r16, r18, 9223372036854775809, 0)
-    if is_error(r19) goto L8 (error at get_weather:25) else goto L4
+    if is_error(r19) goto L8 (error at get_weather:24) else goto L4
 L4:
     dec_ref r15
     return r19
@@ -234,20 +236,18 @@ def determine_emojis(weather_data):
     r17 :: bit
     r18, r19 :: str
     r20 :: bit
-    r21, humidity_emoji, r22 :: str
-    r23 :: bit
-    r24, temp_emoji :: str
-    r25 :: bit
-    r26 :: str
-    r27 :: bit
-    r28 :: str
-    r29 :: bit
-    r30, r31 :: str
-    r32, r33 :: tuple[str, str, str]
+    r21, r22, r23, humidity_emoji :: str
+    r24 :: bit
+    r25, temp_emoji :: str
+    r26 :: bit
+    r27 :: str
+    r28 :: bit
+    r29, r30 :: str
+    r31, r32 :: tuple[str, str, str]
 L0:
     r0 = 'feels_like'
     r1 = CPyDict_GetItem(weather_data, r0)
-    if is_error(r1) goto L27 (error at determine_emojis:30) else goto L1
+    if is_error(r1) goto L25 (error at determine_emojis:29) else goto L1
 L1:
     r2 = unbox(float, r1)
     dec_ref r1
@@ -256,10 +256,10 @@ L1:
 L2:
     r4 = 'humidity'
     r5 = CPyDict_GetItem(weather_data, r4)
-    if is_error(r5) goto L27 (error at determine_emojis:31) else goto L4
+    if is_error(r5) goto L25 (error at determine_emojis:30) else goto L4
 L3:
     r6 = PyErr_Occurred()
-    if not is_error(r6) goto L27 (error at determine_emojis:30) else goto L2
+    if not is_error(r6) goto L25 (error at determine_emojis:29) else goto L2
 L4:
     r7 = unbox(float, r5)
     dec_ref r5
@@ -268,10 +268,10 @@ L4:
 L5:
     r9 = 'temp'
     r10 = CPyDict_GetItem(weather_data, r9)
-    if is_error(r10) goto L27 (error at determine_emojis:32) else goto L7
+    if is_error(r10) goto L25 (error at determine_emojis:31) else goto L7
 L6:
     r11 = PyErr_Occurred()
-    if not is_error(r11) goto L27 (error at determine_emojis:31) else goto L5
+    if not is_error(r11) goto L25 (error at determine_emojis:30) else goto L5
 L7:
     r12 = unbox(float, r10)
     dec_ref r10
@@ -282,7 +282,7 @@ L8:
     if r14 goto L10 else goto L11 :: bool
 L9:
     r15 = PyErr_Occurred()
-    if not is_error(r15) goto L27 (error at determine_emojis:32) else goto L8
+    if not is_error(r15) goto L25 (error at determine_emojis:31) else goto L8
 L10:
     r16 = '☀️'
     inc_ref r16
@@ -306,54 +306,47 @@ L14:
 L15:
     r21 = '💦'
     inc_ref r21
-    humidity_emoji = r21
+    r22 = r21
     goto L17
 L16:
-    r22 = '💧'
-    inc_ref r22
-    humidity_emoji = r22
+    r23 = '💧'
+    inc_ref r23
+    r22 = r23
 L17:
-    r23 = r12 >= 30.0
-    if r23 goto L18 else goto L19 :: bool
+    humidity_emoji = r22
+    r24 = r12 >= 30.0
+    if r24 goto L18 else goto L19 :: bool
 L18:
-    r24 = '🔥'
-    inc_ref r24
-    temp_emoji = r24
-    goto L26
+    r25 = '🔥'
+    inc_ref r25
+    temp_emoji = r25
+    goto L24
 L19:
-    r25 = r12 >= 20.0
-    if r25 goto L20 else goto L21 :: bool
+    r26 = r12 >= 20.0
+    if r26 goto L20 else goto L21 :: bool
 L20:
-    r26 = '☀️'
-    inc_ref r26
-    temp_emoji = r26
-    goto L26
+    r27 = '☀️'
+    inc_ref r27
+    temp_emoji = r27
+    goto L24
 L21:
-    r27 = r12 >= 10.0
-    if r27 goto L22 else goto L23 :: bool
+    r28 = r12 >= 10.0
+    if r28 goto L22 else goto L23 :: bool
 L22:
-    r28 = '🌡️'
-    inc_ref r28
-    temp_emoji = r28
-    goto L26
+    r29 = '🌡️'
+    inc_ref r29
+    temp_emoji = r29
+    goto L24
 L23:
-    r29 = r12 >= 0.0
-    if r29 goto L24 else goto L25 :: bool
-L24:
     r30 = '❄️'
     inc_ref r30
     temp_emoji = r30
-    goto L26
+L24:
+    r31 = (feels_like_emoji, humidity_emoji, temp_emoji)
+    return r31
 L25:
-    r31 = '❄️'
-    inc_ref r31
-    temp_emoji = r31
-L26:
-    r32 = (feels_like_emoji, humidity_emoji, temp_emoji)
+    r32 = <error> :: tuple[str, str, str]
     return r32
-L27:
-    r33 = <error> :: tuple[str, str, str]
-    return r33
 
 def main():
     r0, r1 :: str
@@ -380,80 +373,16 @@ def main():
     r28 :: float
     r29 :: bit
     r30, r31, r32 :: object
-    r33 :: str
+    r33 :: None
     r34 :: object
-    r35 :: dict
-    r36 :: tuple[str, str, str]
-    r37, r38, r39, r40, r41, r42, r43, r44 :: str
-    r45 :: object
-    r46 :: float
-    r47 :: bit
-    r48 :: object
-    r49 :: str
-    r50 :: object
-    r51, r52 :: str
-    r53 :: object
-    r54 :: str
-    r55 :: object
-    r56 :: object[1]
-    r57 :: object_ptr
-    r58 :: object
-    r59, r60 :: str
-    r61 :: object
-    r62 :: float
-    r63 :: bit
-    r64 :: object
-    r65 :: str
-    r66 :: object
-    r67, r68 :: str
-    r69 :: object
-    r70 :: str
-    r71 :: object
-    r72 :: object[1]
-    r73 :: object_ptr
-    r74 :: object
-    r75, r76 :: str
-    r77 :: object
-    r78 :: float
-    r79 :: bit
-    r80 :: object
-    r81 :: str
-    r82 :: object
-    r83, r84 :: str
-    r85 :: object
-    r86 :: str
-    r87 :: object
-    r88 :: object[1]
-    r89 :: object_ptr
-    r90 :: object
-    r91, r92 :: str
-    r93 :: object
-    r94 :: float
-    r95 :: bit
-    r96 :: object
-    r97 :: str
-    r98, r99, r100 :: object
-    r101 :: object[2]
-    r102 :: object_ptr
-    r103 :: object
-    r104, r105 :: str
-    r106 :: object
-    r107 :: float
-    r108 :: bit
-    r109 :: object
-    r110 :: str
-    r111, r112, r113 :: object
-    r114 :: object[2]
-    r115 :: object_ptr
-    r116 :: object
-    r117 :: str
-    r118 :: object
-    r119 :: str
-    r120 :: object
-    r121 :: object[1]
-    r122 :: object_ptr
-    r123 :: object
-    r124 :: None
+    r35 :: str
+    r36 :: object
+    r37 :: str
+    r38 :: object
+    r39 :: object[1]
+    r40 :: object_ptr
+    r41 :: object
+    r42 :: None
 L0:
     r0 = '6686d8ea951a043615db0329e612361a'
     inc_ref r0
@@ -461,20 +390,20 @@ L0:
     r2 = builtins :: module
     r3 = 'input'
     r4 = CPyObject_GetAttr(r2, r3)
-    if is_error(r4) goto L56 (error at main:67) else goto L1
+    if is_error(r4) goto L21 (error at main:59) else goto L1
 L1:
     r5 = [r1]
     r6 = load_address r5
     r7 = _PyObject_Vectorcall(r4, r6, 1, 0)
     dec_ref r4
-    if is_error(r7) goto L56 (error at main:67) else goto L2
+    if is_error(r7) goto L21 (error at main:59) else goto L2
 L2:
     r8 = cast(str, r7)
-    if is_error(r8) goto L56 (error at main:67) else goto L3
+    if is_error(r8) goto L21 (error at main:59) else goto L3
 L3:
     r9 = get_coordinates(r8, r0)
     dec_ref r8
-    if is_error(r9) goto L56 (error at main:68) else goto L4
+    if is_error(r9) goto L21 (error at main:60) else goto L4
 L4:
     r10 = borrow r9[0]
     r11 = unborrow r10
@@ -482,31 +411,31 @@ L4:
     r13 = unborrow r12
     r14 = load_address _Py_NoneStruct
     r15 = r11 != r14
-    if r15 goto L5 else goto L57 :: bool
+    if r15 goto L5 else goto L22 :: bool
 L5:
     r16 = unbox(float, r11)
     r17 = r16 == -113.0
     if r17 goto L7 else goto L6 :: bool
 L6:
     r18 = r16 != 0.0
-    if r18 goto L8 else goto L57 :: bool
+    if r18 goto L8 else goto L22 :: bool
 L7:
     r19 = PyErr_Occurred()
-    if not is_error(r19) goto L58 (error at main:68) else goto L6
+    if not is_error(r19) goto L23 (error at main:60) else goto L6
 L8:
     r20 = load_address _Py_NoneStruct
     r21 = r13 != r20
-    if r21 goto L9 else goto L57 :: bool
+    if r21 goto L9 else goto L22 :: bool
 L9:
     r22 = unbox(float, r13)
     r23 = r22 == -113.0
     if r23 goto L11 else goto L10 :: bool
 L10:
     r24 = r22 != 0.0
-    if r24 goto L12 else goto L57 :: bool
+    if r24 goto L12 else goto L22 :: bool
 L11:
     r25 = PyErr_Occurred()
-    if not is_error(r25) goto L58 (error at main:68) else goto L10
+    if not is_error(r25) goto L23 (error at main:60) else goto L10
 L12:
     r26 = unbox(float, r11)
     dec_ref r11
@@ -519,286 +448,392 @@ L13:
     if r29 goto L16 else goto L15 :: bool
 L14:
     r30 = PyErr_Occurred()
-    if not is_error(r30) goto L59 (error at main:70) else goto L13
+    if not is_error(r30) goto L24 (error at main:62) else goto L13
 L15:
-    r31 = get_weather(r26, r28, r0)
-    dec_ref r0
-    if is_error(r31) goto L55 (error at main:70) else goto L17
-L16:
-    r32 = PyErr_Occurred()
-    if not is_error(r32) goto L56 (error at main:70) else goto L15
-L17:
-    r33 = 'main'
-    r34 = PyObject_GetItem(r31, r33)
+    r31 = box(float, r26)
+    r32 = box(float, r28)
+    r33 = display_weather(r31, r32, r0)
     dec_ref r31
-    if is_error(r34) goto L55 (error at main:70) else goto L18
+    dec_ref r32
+    dec_ref r0
+    if is_error(r33) goto L20 (error at main:62) else goto L19
+L16:
+    r34 = PyErr_Occurred()
+    if not is_error(r34) goto L21 (error at main:62) else goto L15
+L17:
+    r35 = 'City not found.'
+    r36 = builtins :: module
+    r37 = 'print'
+    r38 = CPyObject_GetAttr(r36, r37)
+    if is_error(r38) goto L20 (error at main:64) else goto L18
 L18:
-    r35 = cast(dict, r34)
-    if is_error(r35) goto L55 (error at main:70) else goto L19
+    r39 = [r35]
+    r40 = load_address r39
+    r41 = _PyObject_Vectorcall(r38, r40, 1, 0)
+    dec_ref r38
+    if is_error(r41) goto L20 (error at main:64) else goto L25
 L19:
-    r36 = determine_emojis(r35)
-    if is_error(r36) goto L60 (error at main:71) else goto L20
-L20:
-    r37 = borrow r36[0]
-    r38 = unborrow r37
-    r39 = borrow r36[1]
-    r40 = unborrow r39
-    r41 = borrow r36[2]
-    r42 = unborrow r41
-    r43 = 'Feels like: '
-    r44 = 'feels_like'
-    r45 = CPyDict_GetItem(r35, r44)
-    if is_error(r45) goto L61 (error at main:72) else goto L21
-L21:
-    r46 = unbox(float, r45)
-    dec_ref r45
-    r47 = r46 == -113.0
-    if r47 goto L23 else goto L22 :: bool
-L22:
-    r48 = box(float, r46)
-    r49 = PyObject_Str(r48)
-    dec_ref r48
-    if is_error(r49) goto L61 (error at main:72) else goto L24
-L23:
-    r50 = PyErr_Occurred()
-    if not is_error(r50) goto L61 (error at main:72) else goto L22
-L24:
-    r51 = '° '
-    r52 = CPyStr_Build(4, r43, r49, r51, r38)
-    dec_ref r49
-    dec_ref r38
-    if is_error(r52) goto L62 (error at main:72) else goto L25
-L25:
-    r53 = builtins :: module
-    r54 = 'print'
-    r55 = CPyObject_GetAttr(r53, r54)
-    if is_error(r55) goto L63 (error at main:72) else goto L26
-L26:
-    r56 = [r52]
-    r57 = load_address r56
-    r58 = _PyObject_Vectorcall(r55, r57, 1, 0)
-    dec_ref r55
-    if is_error(r58) goto L63 (error at main:72) else goto L64
-L27:
-    dec_ref r52
-    r59 = 'Humidity: '
-    r60 = 'humidity'
-    r61 = CPyDict_GetItem(r35, r60)
-    if is_error(r61) goto L62 (error at main:73) else goto L28
-L28:
-    r62 = unbox(float, r61)
-    dec_ref r61
-    r63 = r62 == -113.0
-    if r63 goto L30 else goto L29 :: bool
-L29:
-    r64 = box(float, r62)
-    r65 = PyObject_Str(r64)
-    dec_ref r64
-    if is_error(r65) goto L62 (error at main:73) else goto L31
-L30:
-    r66 = PyErr_Occurred()
-    if not is_error(r66) goto L62 (error at main:73) else goto L29
-L31:
-    r67 = '% '
-    r68 = CPyStr_Build(4, r59, r65, r67, r40)
-    dec_ref r65
-    dec_ref r40
-    if is_error(r68) goto L65 (error at main:73) else goto L32
-L32:
-    r69 = builtins :: module
-    r70 = 'print'
-    r71 = CPyObject_GetAttr(r69, r70)
-    if is_error(r71) goto L66 (error at main:73) else goto L33
-L33:
-    r72 = [r68]
-    r73 = load_address r72
-    r74 = _PyObject_Vectorcall(r71, r73, 1, 0)
-    dec_ref r71
-    if is_error(r74) goto L66 (error at main:73) else goto L67
-L34:
-    dec_ref r68
-    r75 = 'Temperature: '
-    r76 = 'temp'
-    r77 = CPyDict_GetItem(r35, r76)
-    if is_error(r77) goto L65 (error at main:74) else goto L35
-L35:
-    r78 = unbox(float, r77)
-    dec_ref r77
-    r79 = r78 == -113.0
-    if r79 goto L37 else goto L36 :: bool
-L36:
-    r80 = box(float, r78)
-    r81 = PyObject_Str(r80)
-    dec_ref r80
-    if is_error(r81) goto L65 (error at main:74) else goto L38
-L37:
-    r82 = PyErr_Occurred()
-    if not is_error(r82) goto L65 (error at main:74) else goto L36
-L38:
-    r83 = '° '
-    r84 = CPyStr_Build(4, r75, r81, r83, r42)
-    dec_ref r81
-    dec_ref r42
-    if is_error(r84) goto L60 (error at main:74) else goto L39
-L39:
-    r85 = builtins :: module
-    r86 = 'print'
-    r87 = CPyObject_GetAttr(r85, r86)
-    if is_error(r87) goto L68 (error at main:74) else goto L40
-L40:
-    r88 = [r84]
-    r89 = load_address r88
-    r90 = _PyObject_Vectorcall(r87, r89, 1, 0)
-    dec_ref r87
-    if is_error(r90) goto L68 (error at main:74) else goto L69
-L41:
-    dec_ref r84
-    r91 = 'Temperature min:'
-    r92 = 'temp_min'
-    r93 = CPyDict_GetItem(r35, r92)
-    if is_error(r93) goto L60 (error at main:75) else goto L42
-L42:
-    r94 = unbox(float, r93)
-    dec_ref r93
-    r95 = r94 == -113.0
-    if r95 goto L44 else goto L43 :: bool
-L43:
-    r96 = builtins :: module
-    r97 = 'print'
-    r98 = CPyObject_GetAttr(r96, r97)
-    if is_error(r98) goto L60 (error at main:75) else goto L45
-L44:
-    r99 = PyErr_Occurred()
-    if not is_error(r99) goto L60 (error at main:75) else goto L43
-L45:
-    r100 = box(float, r94)
-    r101 = [r91, r100]
-    r102 = load_address r101
-    r103 = _PyObject_Vectorcall(r98, r102, 2, 0)
-    dec_ref r98
-    if is_error(r103) goto L70 (error at main:75) else goto L71
-L46:
-    dec_ref r100
-    r104 = 'Temperature max:'
-    r105 = 'temp_max'
-    r106 = CPyDict_GetItem(r35, r105)
-    dec_ref r35
-    if is_error(r106) goto L55 (error at main:76) else goto L47
-L47:
-    r107 = unbox(float, r106)
-    dec_ref r106
-    r108 = r107 == -113.0
-    if r108 goto L49 else goto L48 :: bool
-L48:
-    r109 = builtins :: module
-    r110 = 'print'
-    r111 = CPyObject_GetAttr(r109, r110)
-    if is_error(r111) goto L55 (error at main:76) else goto L50
-L49:
-    r112 = PyErr_Occurred()
-    if not is_error(r112) goto L55 (error at main:76) else goto L48
-L50:
-    r113 = box(float, r107)
-    r114 = [r104, r113]
-    r115 = load_address r114
-    r116 = _PyObject_Vectorcall(r111, r115, 2, 0)
-    dec_ref r111
-    if is_error(r116) goto L72 (error at main:76) else goto L73
-L51:
-    dec_ref r113
-    goto L54
-L52:
-    r117 = 'City not found.'
-    r118 = builtins :: module
-    r119 = 'print'
-    r120 = CPyObject_GetAttr(r118, r119)
-    if is_error(r120) goto L55 (error at main:78) else goto L53
-L53:
-    r121 = [r117]
-    r122 = load_address r121
-    r123 = _PyObject_Vectorcall(r120, r122, 1, 0)
-    dec_ref r120
-    if is_error(r123) goto L55 (error at main:78) else goto L74
-L54:
     return 1
-L55:
-    r124 = <error> :: None
-    return r124
-L56:
+L20:
+    r42 = <error> :: None
+    return r42
+L21:
     dec_ref r0
-    goto L55
-L57:
-    dec_ref r0
-    dec_ref r11
-    dec_ref r13
-    goto L52
-L58:
+    goto L20
+L22:
     dec_ref r0
     dec_ref r11
     dec_ref r13
-    goto L55
-L59:
+    goto L17
+L23:
+    dec_ref r0
+    dec_ref r11
+    dec_ref r13
+    goto L20
+L24:
     dec_ref r0
     dec_ref r13
-    goto L55
-L60:
-    dec_ref r35
-    goto L55
-L61:
-    dec_ref r35
-    dec_ref r38
+    goto L20
+L25:
+    dec_ref r41
+    goto L19
+
+def display_weather(lat, lon, api_key):
+    lat, lon, api_key :: object
+    r0 :: float
+    r1 :: bit
+    r2 :: float
+    r3 :: bit
+    r4 :: object
+    r5 :: str
+    r6, r7 :: object
+    r8 :: str
+    r9 :: object
+    r10 :: dict
+    r11 :: tuple[str, str, str]
+    r12, r13, r14, r15, r16, r17, r18, r19 :: str
+    r20 :: object
+    r21 :: float
+    r22 :: bit
+    r23 :: object
+    r24 :: str
+    r25 :: object
+    r26, r27 :: str
+    r28 :: object
+    r29 :: str
+    r30 :: object
+    r31 :: object[1]
+    r32 :: object_ptr
+    r33 :: object
+    r34, r35 :: str
+    r36 :: object
+    r37 :: float
+    r38 :: bit
+    r39 :: object
+    r40 :: str
+    r41 :: object
+    r42, r43 :: str
+    r44 :: object
+    r45 :: str
+    r46 :: object
+    r47 :: object[1]
+    r48 :: object_ptr
+    r49 :: object
+    r50, r51 :: str
+    r52 :: object
+    r53 :: float
+    r54 :: bit
+    r55 :: object
+    r56 :: str
+    r57 :: object
+    r58, r59 :: str
+    r60 :: object
+    r61 :: str
+    r62 :: object
+    r63 :: object[1]
+    r64 :: object_ptr
+    r65 :: object
+    r66, r67 :: str
+    r68 :: object
+    r69 :: float
+    r70 :: bit
+    r71 :: object
+    r72 :: str
+    r73, r74, r75 :: object
+    r76 :: object[2]
+    r77 :: object_ptr
+    r78 :: object
+    r79, r80 :: str
+    r81 :: object
+    r82 :: float
+    r83 :: bit
+    r84 :: object
+    r85 :: str
+    r86, r87, r88 :: object
+    r89 :: object[2]
+    r90 :: object_ptr
+    r91 :: object
+    r92 :: None
+L0:
+    r0 = unbox(float, lat)
+    r1 = r0 == -113.0
+    if r1 goto L2 else goto L1 :: bool
+L1:
+    r2 = unbox(float, lon)
+    r3 = r2 == -113.0
+    if r3 goto L4 else goto L3 :: bool
+L2:
+    r4 = PyErr_Occurred()
+    if not is_error(r4) goto L41 (error at display_weather:68) else goto L1
+L3:
+    inc_ref api_key
+    r5 = cast(str, api_key)
+    if is_error(r5) goto L41 (error at display_weather:68) else goto L5
+L4:
+    r6 = PyErr_Occurred()
+    if not is_error(r6) goto L41 (error at display_weather:68) else goto L3
+L5:
+    r7 = get_weather(r0, r2, r5)
+    dec_ref r5
+    if is_error(r7) goto L41 (error at display_weather:68) else goto L6
+L6:
+    r8 = 'main'
+    r9 = PyObject_GetItem(r7, r8)
+    dec_ref r7
+    if is_error(r9) goto L41 (error at display_weather:68) else goto L7
+L7:
+    r10 = cast(dict, r9)
+    if is_error(r10) goto L41 (error at display_weather:68) else goto L8
+L8:
+    r11 = determine_emojis(r10)
+    if is_error(r11) goto L42 (error at display_weather:69) else goto L9
+L9:
+    r12 = borrow r11[0]
+    r13 = unborrow r12
+    r14 = borrow r11[1]
+    r15 = unborrow r14
+    r16 = borrow r11[2]
+    r17 = unborrow r16
+    r18 = 'Feels like: '
+    r19 = 'feels_like'
+    r20 = CPyDict_GetItem(r10, r19)
+    if is_error(r20) goto L43 (error at display_weather:70) else goto L10
+L10:
+    r21 = unbox(float, r20)
+    dec_ref r20
+    r22 = r21 == -113.0
+    if r22 goto L12 else goto L11 :: bool
+L11:
+    r23 = box(float, r21)
+    r24 = PyObject_Str(r23)
+    dec_ref r23
+    if is_error(r24) goto L43 (error at display_weather:70) else goto L13
+L12:
+    r25 = PyErr_Occurred()
+    if not is_error(r25) goto L43 (error at display_weather:70) else goto L11
+L13:
+    r26 = '° '
+    r27 = CPyStr_Build(4, r18, r24, r26, r13)
+    dec_ref r24
+    dec_ref r13
+    if is_error(r27) goto L44 (error at display_weather:70) else goto L14
+L14:
+    r28 = builtins :: module
+    r29 = 'print'
+    r30 = CPyObject_GetAttr(r28, r29)
+    if is_error(r30) goto L45 (error at display_weather:70) else goto L15
+L15:
+    r31 = [r27]
+    r32 = load_address r31
+    r33 = _PyObject_Vectorcall(r30, r32, 1, 0)
+    dec_ref r30
+    if is_error(r33) goto L45 (error at display_weather:70) else goto L46
+L16:
+    dec_ref r27
+    r34 = 'Humidity: '
+    r35 = 'humidity'
+    r36 = CPyDict_GetItem(r10, r35)
+    if is_error(r36) goto L44 (error at display_weather:71) else goto L17
+L17:
+    r37 = unbox(float, r36)
+    dec_ref r36
+    r38 = r37 == -113.0
+    if r38 goto L19 else goto L18 :: bool
+L18:
+    r39 = box(float, r37)
+    r40 = PyObject_Str(r39)
+    dec_ref r39
+    if is_error(r40) goto L44 (error at display_weather:71) else goto L20
+L19:
+    r41 = PyErr_Occurred()
+    if not is_error(r41) goto L44 (error at display_weather:71) else goto L18
+L20:
+    r42 = '% '
+    r43 = CPyStr_Build(4, r34, r40, r42, r15)
     dec_ref r40
-    dec_ref r42
-    goto L55
-L62:
-    dec_ref r35
-    dec_ref r40
-    dec_ref r42
-    goto L55
-L63:
-    dec_ref r35
-    dec_ref r40
-    dec_ref r42
+    dec_ref r15
+    if is_error(r43) goto L47 (error at display_weather:71) else goto L21
+L21:
+    r44 = builtins :: module
+    r45 = 'print'
+    r46 = CPyObject_GetAttr(r44, r45)
+    if is_error(r46) goto L48 (error at display_weather:71) else goto L22
+L22:
+    r47 = [r43]
+    r48 = load_address r47
+    r49 = _PyObject_Vectorcall(r46, r48, 1, 0)
+    dec_ref r46
+    if is_error(r49) goto L48 (error at display_weather:71) else goto L49
+L23:
+    dec_ref r43
+    r50 = 'Temperature: '
+    r51 = 'temp'
+    r52 = CPyDict_GetItem(r10, r51)
+    if is_error(r52) goto L47 (error at display_weather:72) else goto L24
+L24:
+    r53 = unbox(float, r52)
     dec_ref r52
-    goto L55
-L64:
-    dec_ref r58
-    goto L27
-L65:
-    dec_ref r35
-    dec_ref r42
-    goto L55
-L66:
-    dec_ref r35
-    dec_ref r42
+    r54 = r53 == -113.0
+    if r54 goto L26 else goto L25 :: bool
+L25:
+    r55 = box(float, r53)
+    r56 = PyObject_Str(r55)
+    dec_ref r55
+    if is_error(r56) goto L47 (error at display_weather:72) else goto L27
+L26:
+    r57 = PyErr_Occurred()
+    if not is_error(r57) goto L47 (error at display_weather:72) else goto L25
+L27:
+    r58 = '° '
+    r59 = CPyStr_Build(4, r50, r56, r58, r17)
+    dec_ref r56
+    dec_ref r17
+    if is_error(r59) goto L42 (error at display_weather:72) else goto L28
+L28:
+    r60 = builtins :: module
+    r61 = 'print'
+    r62 = CPyObject_GetAttr(r60, r61)
+    if is_error(r62) goto L50 (error at display_weather:72) else goto L29
+L29:
+    r63 = [r59]
+    r64 = load_address r63
+    r65 = _PyObject_Vectorcall(r62, r64, 1, 0)
+    dec_ref r62
+    if is_error(r65) goto L50 (error at display_weather:72) else goto L51
+L30:
+    dec_ref r59
+    r66 = 'Temperature min:'
+    r67 = 'temp_min'
+    r68 = CPyDict_GetItem(r10, r67)
+    if is_error(r68) goto L42 (error at display_weather:73) else goto L31
+L31:
+    r69 = unbox(float, r68)
     dec_ref r68
-    goto L55
-L67:
-    dec_ref r74
-    goto L34
-L68:
-    dec_ref r35
-    dec_ref r84
-    goto L55
-L69:
-    dec_ref r90
+    r70 = r69 == -113.0
+    if r70 goto L33 else goto L32 :: bool
+L32:
+    r71 = builtins :: module
+    r72 = 'print'
+    r73 = CPyObject_GetAttr(r71, r72)
+    if is_error(r73) goto L42 (error at display_weather:73) else goto L34
+L33:
+    r74 = PyErr_Occurred()
+    if not is_error(r74) goto L42 (error at display_weather:73) else goto L32
+L34:
+    r75 = box(float, r69)
+    r76 = [r66, r75]
+    r77 = load_address r76
+    r78 = _PyObject_Vectorcall(r73, r77, 2, 0)
+    dec_ref r73
+    if is_error(r78) goto L52 (error at display_weather:73) else goto L53
+L35:
+    dec_ref r75
+    r79 = 'Temperature max:'
+    r80 = 'temp_max'
+    r81 = CPyDict_GetItem(r10, r80)
+    dec_ref r10
+    if is_error(r81) goto L41 (error at display_weather:74) else goto L36
+L36:
+    r82 = unbox(float, r81)
+    dec_ref r81
+    r83 = r82 == -113.0
+    if r83 goto L38 else goto L37 :: bool
+L37:
+    r84 = builtins :: module
+    r85 = 'print'
+    r86 = CPyObject_GetAttr(r84, r85)
+    if is_error(r86) goto L41 (error at display_weather:74) else goto L39
+L38:
+    r87 = PyErr_Occurred()
+    if not is_error(r87) goto L41 (error at display_weather:74) else goto L37
+L39:
+    r88 = box(float, r82)
+    r89 = [r79, r88]
+    r90 = load_address r89
+    r91 = _PyObject_Vectorcall(r86, r90, 2, 0)
+    dec_ref r86
+    if is_error(r91) goto L54 (error at display_weather:74) else goto L55
+L40:
+    dec_ref r88
+    return 1
+L41:
+    r92 = <error> :: None
+    return r92
+L42:
+    dec_ref r10
     goto L41
-L70:
-    dec_ref r35
-    dec_ref r100
-    goto L55
-L71:
-    dec_ref r103
-    goto L46
-L72:
-    dec_ref r113
-    goto L55
-L73:
-    dec_ref r116
-    goto L51
-L74:
-    dec_ref r123
-    goto L54
+L43:
+    dec_ref r10
+    dec_ref r13
+    dec_ref r15
+    dec_ref r17
+    goto L41
+L44:
+    dec_ref r10
+    dec_ref r15
+    dec_ref r17
+    goto L41
+L45:
+    dec_ref r10
+    dec_ref r15
+    dec_ref r17
+    dec_ref r27
+    goto L41
+L46:
+    dec_ref r33
+    goto L16
+L47:
+    dec_ref r10
+    dec_ref r17
+    goto L41
+L48:
+    dec_ref r10
+    dec_ref r17
+    dec_ref r43
+    goto L41
+L49:
+    dec_ref r49
+    goto L23
+L50:
+    dec_ref r10
+    dec_ref r59
+    goto L41
+L51:
+    dec_ref r65
+    goto L30
+L52:
+    dec_ref r10
+    dec_ref r75
+    goto L41
+L53:
+    dec_ref r78
+    goto L35
+L54:
+    dec_ref r88
+    goto L41
+L55:
+    dec_ref r91
+    goto L40
 
 def __top_level__():
     r0, r1 :: object
@@ -852,7 +887,7 @@ L4:
     if not r18 goto L7 else goto L5 :: bool
 L5:
     r19 = main()
-    if is_error(r19) goto L7 (error at <module>:81) else goto L6
+    if is_error(r19) goto L7 (error at <module>:77) else goto L6
 L6:
     return 1
 L7:

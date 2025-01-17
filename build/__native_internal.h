@@ -28,5 +28,7 @@ extern tuple_T3OOO CPyDef_determine_emojis(PyObject *cpy_r_weather_data);
 extern PyObject *CPyPy_determine_emojis(PyObject *self, PyObject *const *args, size_t nargs, PyObject *kwnames);
 extern char CPyDef_main(void);
 extern PyObject *CPyPy_main(PyObject *self, PyObject *const *args, size_t nargs, PyObject *kwnames);
+extern char CPyDef_display_weather(PyObject *cpy_r_lat, PyObject *cpy_r_lon, PyObject *cpy_r_api_key);
+extern PyObject *CPyPy_display_weather(PyObject *self, PyObject *const *args, size_t nargs, PyObject *kwnames);
 extern char CPyDef___top_level__(void);
 #endif
